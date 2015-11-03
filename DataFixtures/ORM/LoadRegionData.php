@@ -1,11 +1,4 @@
 <?php
-/**
- * LoadRegionData.php.
- *
- * @author    Valentin - Chaplean <valentin@chaplean.com>
- * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
- * @since     1.17.0
- */
 
 namespace Chaplean\Bundle\LocationBundle\DataFixtures\ORM;
 
@@ -15,6 +8,13 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
+/**
+ * LoadRegionData.php.
+ *
+ * @author    Valentin - Chaplean <valentin@chaplean.com>
+ * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
+ * @since     1.0.0
+ */
 class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
@@ -41,7 +41,7 @@ class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return integer
      */
     public function getOrder()
     {

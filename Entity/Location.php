@@ -17,6 +17,8 @@ use JMS\Serializer\Annotation as JMS;
  *     "region"="Chaplean\Bundle\LocationBundle\Entity\Region"
  * }
  * )
+ *
+ * @JMS\ExclusionPolicy("all")
  */
 abstract class Location
 {
@@ -27,6 +29,7 @@ abstract class Location
      * @ORM\Column(type="integer", options={"unsigned":true})
      * @ORM\GeneratedValue(strategy="AUTO")
      *
+     * @JMS\Expose
      * @JMS\Groups({"location_id"})
      */
     protected $id;
@@ -36,7 +39,8 @@ abstract class Location
      *
      * @ORM\Column(type="string", length=50, nullable=false)
      *
-     * @JMS\Groups({"location_name"})
+     * @JMS\Expose
+     * @JMS\Groups({"city_name", "department_name", "region_name"})
      */
     protected $name;
 

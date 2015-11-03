@@ -11,6 +11,8 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @ORM\Table(name="cl_department", uniqueConstraints={@ORM\UniqueConstraint(name="code_INDEX", columns={"code"})})
  * @ORM\Entity
+ *
+ * @JMS\ExclusionPolicy("all")
  */
 class Department extends Location
 {
@@ -19,6 +21,7 @@ class Department extends Location
      *
      * @ORM\Column(type="string", unique=true, length=3, nullable=false, name="code")
      *
+     * @JMS\Expose
      * @JMS\Groups({"department_code"})
      */
     private $code;
@@ -29,6 +32,7 @@ class Department extends Location
      * @ORM\ManyToOne(targetEntity="Chaplean\Bundle\LocationBundle\Entity\Region", inversedBy="departments")
      * @ORM\JoinColumn(name="region_id", referencedColumnName="id", nullable=false)
      *
+     * @JMS\Expose
      * @JMS\MaxDepth(depth=1)
      * @JMS\Groups({"department_region"})
      */
@@ -39,6 +43,7 @@ class Department extends Location
      *
      * @ORM\OneToMany(targetEntity="Chaplean\Bundle\LocationBundle\Entity\City", mappedBy="department")
      *
+     * @JMS\Expose
      * @JMS\MaxDepth(depth=1)
      * @JMS\Groups({"department_cities"})
      */

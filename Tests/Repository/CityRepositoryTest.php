@@ -3,18 +3,21 @@
 namespace Chaplean\Bundle\LocationBundle\Tests\Repository;
 
 use Chaplean\Bundle\LocationBundle\Entity\City;
-use Chaplean\Bundle\LocationBundle\Entity\Region;
 use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * RegionRepositoryTest.php.
  *
  * @author    Valentin - Chaplean <valentin@chaplean.com>
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
- * @since     1.17.0
+ * @since     1.0.0
  */
 class CityRepositoryTest extends LogicalTest
 {
+    /** @var  EntityRepository */
+    protected $cityRepository;
+
     /**
      * @return void
      */
@@ -55,10 +58,7 @@ class CityRepositoryTest extends LogicalTest
         $city = $this->cityRepository->findOneBy(array('name' => 'Le Subdray'));
 
         $this->assertTrue($city instanceof City);
-        $this->assertEquals(
-            '6', $city->getDepartment()
-            ->getId()
-        );
+        $this->assertEquals('6', $city->getDepartment()->getId());
         $this->assertEquals('18570', $city->getZipcode());
     }
 
@@ -70,24 +70,7 @@ class CityRepositoryTest extends LogicalTest
         $city = $this->cityRepository->findOneBy(array('zipcode' => '87000'));
 
         $this->assertTrue($city instanceof City);
-        $this->assertEquals(
-            '5', $city->getDepartment()
-            ->getId()
-        );
+        $this->assertEquals('5', $city->getDepartment()->getId());
         $this->assertEquals('Limoges', $city->getName());
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetRegion()
-    {
-        /** @var City $city */
-        $city = $this->cityRepository->findOneBy(array('name' => 'Bordeaux'));
-        $region = $city->getRegion($city);
-
-        $this->assertTrue($city instanceof City);
-        $this->assertTrue($region instanceof Region);
-        $this->assertEquals('Aquitaine', $region->getName());
     }
 }

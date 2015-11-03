@@ -11,6 +11,8 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @ORM\Table(name="cl_region", uniqueConstraints={@ORM\UniqueConstraint(name="code_INDEX", columns={"code"})})
  * @ORM\Entity
+ *
+ * @JMS\ExclusionPolicy("all")
  */
 class Region extends Location
 {
@@ -19,6 +21,7 @@ class Region extends Location
      *
      * @ORM\Column(type="string", unique=true, length=2, nullable=false, name="code")
      *
+     * @JMS\Expose
      * @JMS\Groups({"region_code"})
      */
     private $code;
@@ -28,6 +31,7 @@ class Region extends Location
      *
      * @ORM\OneToMany(targetEntity="Chaplean\Bundle\LocationBundle\Entity\Department", mappedBy="region")
      *
+     * @JMS\Expose
      * @JMS\MaxDepth(depth=1)
      * @JMS\Groups({"region_departments"})
      */
@@ -99,15 +103,5 @@ class Region extends Location
     public function getDepartments()
     {
         return $this->departments;
-    }
-
-    /**
-     * Get Highchart key
-     *
-     * @return string
-     */
-    public function getHighchartKey()
-    {
-        return isset($this->highchartData[$this->getId()]) ? $this->highchartData[$this->getId()] : null;
     }
 }

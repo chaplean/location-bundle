@@ -10,6 +10,8 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @ORM\Table(name="cl_city", indexes={@ORM\Index(name="zipcode_INDEX", columns={"zipcode"})})
  * @ORM\Entity()
+ *
+ * @JMS\ExclusionPolicy("all")
  */
 class City extends Location
 {
@@ -18,6 +20,7 @@ class City extends Location
      *
      * @ORM\Column(type="integer", length=5, nullable=false, name="zipcode", options={"unsigned":true})
      *
+     * @JMS\Expose
      * @JMS\Groups({"city_zipcode"})
      */
     private $zipcode;
@@ -28,6 +31,7 @@ class City extends Location
      * @ORM\ManyToOne(targetEntity="Chaplean\Bundle\LocationBundle\Entity\Department", inversedBy="cities")
      * @ORM\JoinColumn(name="department_id", referencedColumnName="id", nullable=false)
      *
+     * @JMS\Expose
      * @JMS\MaxDepth(depth=1)
      * @JMS\Groups({"city_department"})
      */

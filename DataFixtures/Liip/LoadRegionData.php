@@ -13,7 +13,7 @@ use Doctrine\Common\Persistence\ObjectManager;
  *
  * @author    Valentin - Chaplean <valentin@chaplean.com>
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
- * @since     1.17.0
+ * @since     1.0.0
  */
 class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface
 {

@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityRepository;
  *
  * @author    Valentin - Chaplean <valentin@chaplean.com>
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
- * @since     1.17.0
+ * @since     1.0.0
  */
 class DepartmentRepositoryTest extends LogicalTest
 {
@@ -59,10 +59,7 @@ class DepartmentRepositoryTest extends LogicalTest
 
         $this->assertTrue($department instanceof Department);
         $this->assertEquals('Haute-Vienne', $department->getName());
-        $this->assertEquals(
-            '2', $department->getRegion()
-            ->getId()
-        );
+        $this->assertEquals('2', $department->getRegion()->getId());
     }
 
     /**
@@ -74,10 +71,7 @@ class DepartmentRepositoryTest extends LogicalTest
 
         $this->assertTrue($department instanceof Department);
         $this->assertEquals('6', $department->getId());
-        $this->assertEquals(
-            '3', $department->getRegion()
-            ->getId()
-        );
+        $this->assertEquals('3', $department->getRegion()->getId());
     }
 
     /**
