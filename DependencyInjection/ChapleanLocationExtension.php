@@ -15,7 +15,10 @@ use Symfony\Component\DependencyInjection\Loader;
 class ChapleanLocationExtension extends Extension
 {
     /**
-     * {@inheritdoc}
+     * @param array            $configs
+     * @param ContainerBuilder $container
+     *
+     * @return void
      */
     public function load(array $configs, ContainerBuilder $container)
     {
