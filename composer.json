@@ -11,11 +11,11 @@
     ],
     "autoload": {
         "psr-0": {
-            "Chaplean\\Bundle\\GeolocationBundle": "",
+            "Chaplean\\Bundle\\BundleNameBundle": "",
             "SymfonyStandard": "app/"
         }
     },
-    "target-dir" : "Chaplean/Bundle/GeolocationBundle",
+    "target-dir" : "Chaplean/Bundle/BundleNameBundle",
     "repositories": [
         {
             "type": "composer",
@@ -44,10 +44,14 @@
             "SymfonyStandard\\Composer::hookRootPackageInstall"
         ],
         "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ],
         "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ]
     },
     "config": {
