@@ -1,3 +1,0 @@
-BundleName_index:
-    path: /
-    defaults: { _controller: ChapleanBundleNameBundle:Default:index }

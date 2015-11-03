@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaplean\Bundle\BundleNameBundle\DependencyInjection;
+namespace Chaplean\Bundle\LocationBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -13,12 +13,12 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritdoc}
+     * @return TreeBuilder
      */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('chaplean_BundleName');
+        $treeBuilder->root('chaplean_Location');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
