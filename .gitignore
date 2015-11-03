@@ -10,3 +10,4 @@
 behat.yml
 *.php~
 !.gitkeep
+!var/.gitkeep
