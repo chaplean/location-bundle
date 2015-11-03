@@ -83,7 +83,7 @@ class DepartmentTest extends LogicalTest
         $department->setCode('05');
         $department->setRegion(new Region());
 
-        $departmentSerialized = $this->serializer->serialize($department, 'json', SerializationContext::create()->setGroups(array('department_name')));
+        $departmentSerialized = $this->serializer->serialize($department, 'json', SerializationContext::create()->setGroups(array('location_name')));
 
         $this->assertEquals(array(
             'name' => 'SuperDepartment'
@@ -101,7 +101,7 @@ class DepartmentTest extends LogicalTest
         $department->setCode('05');
         $department->setRegion(new Region());
 
-        $departmentSerialized = $this->serializer->serialize($department, 'json', SerializationContext::create()->setGroups(array('department_name', 'department_code')));
+        $departmentSerialized = $this->serializer->serialize($department, 'json', SerializationContext::create()->setGroups(array('location_name', 'department_code')));
 
         $this->assertEquals(array(
             'name' => 'SuperDepartment',

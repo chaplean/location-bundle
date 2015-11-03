@@ -40,7 +40,7 @@ abstract class Location
      * @ORM\Column(type="string", length=50, nullable=false)
      *
      * @JMS\Expose
-     * @JMS\Groups({"city_name", "department_name", "region_name"})
+     * @JMS\Groups({"location_name"})
      */
     protected $name;
 

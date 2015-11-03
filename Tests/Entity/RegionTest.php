@@ -74,7 +74,7 @@ class RegionTest extends LogicalTest
         $region->setName('SuperRegion');
         $region->setCode('05');
 
-        $regionSerialized = $this->serializer->serialize($region, 'json', SerializationContext::create()->setGroups(array('region_name')));
+        $regionSerialized = $this->serializer->serialize($region, 'json', SerializationContext::create()->setGroups(array('location_name')));
 
         $this->assertEquals(array(
             'name' => 'SuperRegion'
@@ -91,7 +91,7 @@ class RegionTest extends LogicalTest
         $region->setName('SuperRegion');
         $region->setCode('05');
 
-        $regionSerialized = $this->serializer->serialize($region, 'json', SerializationContext::create()->setGroups(array('region_name', 'region_code')));
+        $regionSerialized = $this->serializer->serialize($region, 'json', SerializationContext::create()->setGroups(array('location_name', 'region_code')));
 
         $this->assertEquals(array(
             'name' => 'SuperRegion',

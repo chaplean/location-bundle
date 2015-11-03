@@ -82,7 +82,7 @@ class CityTest extends LogicalTest
         $city->setZipcode(15000);
         $city->setDepartment(new Department());
 
-        $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(array('city_name')));
+        $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(array('location_name')));
 
         $this->assertEquals(array(
             'name' => 'SuperCity'
@@ -95,12 +95,11 @@ class CityTest extends LogicalTest
     public function testCitySerializerWithGroup()
     {
         $city = new City();
-
         $city->setName('SuperCity');
         $city->setZipcode(15000);
         $city->setDepartment(new Department());
 
-        $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(array('city_name', 'city_zipcode')));
+        $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(array('location_name', 'city_zipcode')));
 
         $this->assertEquals(array(
             'name' => 'SuperCity',
