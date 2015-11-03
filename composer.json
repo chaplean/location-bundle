@@ -1,6 +1,6 @@
 {
-    "name": "chaplean/bundle",
-    "description": "The Bundle base to fork",
+    "name": "chaplean/location-bundle",
+    "description": "Location bundle contains Entity Region/Department/City",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
