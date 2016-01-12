@@ -1,0 +1,11 @@
+chaplean_location_rest:
+    path:     /
+    options:
+        expose: true
+
+chalean_location_search:
+    type: rest
+    resource: Chaplean\Bundle\LocationBundle\Controller\Rest\LocationController
+    name_prefix: location_rest_location_
+    options:
+        expose: true

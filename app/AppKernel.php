@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Chaplean\Bundle\UnitBundle\ChapleanUnitBundle(),
             new Chaplean\Bundle\LocationBundle\ChapleanLocationBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
         );
     }
 
