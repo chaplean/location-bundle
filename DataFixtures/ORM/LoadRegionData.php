@@ -26,18 +26,58 @@ class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $fileRegion = new CsvReader(__DIR__ . '/../../Resources/doc/regions_2014.csv');
-        $regions = $fileRegion->extractData("\t", 1);
+        $fileRegion = new CsvReader(__DIR__ . '/../../Resources/doc/regions_2016.csv');
+        $regions = $fileRegion->extractData(';');
 
-        foreach ($regions as $regionTxt) {
+        foreach ($regions as $reg) {
             $region = new Region();
-            $region->setCode($regionTxt[0]);
-            $region->setName(ucwords($regionTxt[4]));
+            $region->setCode($reg[0]);
+            $region->setName(ucwords($reg[1]));
             $manager->persist($region);
-            $this->setReference('region-' . $regionTxt[0], $region);
+            $this->setReference('region-' . $reg[0], $region);
         }
 
         $manager->flush();
+    }
+
+    /**
+     * @param string $oldCode
+     *
+     * @return string
+     */
+    public static function getNewCodeRegion($oldCode)
+    {
+        $oldToNewCode = array(
+            '01' => '01',
+            '02' => '02',
+            '03' => '03',
+            '04' => '04',
+            '06' => '06',
+            '11' => '11',
+            '21' => '44',
+            '22' => '32',
+            '23' => '28',
+            '24' => '24',
+            '25' => '28',
+            '26' => '27',
+            '31' => '32',
+            '41' => '44',
+            '42' => '44',
+            '43' => '27',
+            '52' => '52',
+            '53' => '53',
+            '54' => '75',
+            '72' => '75',
+            '73' => '76',
+            '74' => '75',
+            '82' => '84',
+            '83' => '84',
+            '91' => '76',
+            '93' => '93',
+            '94' => '94',
+        );
+
+        return 'region-' . $oldToNewCode[$oldCode];
     }
 
     /**

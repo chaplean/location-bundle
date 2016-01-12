@@ -32,7 +32,7 @@ class LoadDepartmentData extends AbstractFixture implements OrderedFixtureInterf
             $department = new Department();
             $department->setCode($departmentTxt[1]);
             $department->setName(ucwords($departmentTxt[5]));
-            $department->setRegion($this->getReference('region-' . $departmentTxt[0]));
+            $department->setRegion($this->getReference(LoadRegionData::getNewCodeRegion($departmentTxt[0])));
             $manager->persist($department);
             $this->setReference('department-' . $departmentTxt[1], $department);
         }

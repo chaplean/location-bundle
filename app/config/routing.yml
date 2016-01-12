@@ -1,4 +1,4 @@
 chaplean_location:
+    type: rest
     resource: "@ChapleanLocationBundle/Resources/config/routing.yml"
-    prefix:   /
-
+    prefix:   /rest/
