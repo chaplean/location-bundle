@@ -4,6 +4,6 @@ parameters:
     database_password: test
     use_assetic_controller: false
     use_assetic_debug: false
-    sass.bin: /usr/bin/sass
+    sass.bin: /usr/local/bin/sass
+    compass.bin: /usr/local/bin/compass
     ruby.bin: /usr/bin/ruby
-    compass.bin: /usr/bin/compass
