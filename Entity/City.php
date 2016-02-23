@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as JMS;
  * City
  *
  * @ORM\Table(name="cl_city", indexes={@ORM\Index(name="zipcode_INDEX", columns={"zipcode"})})
- * @ORM\Entity()
+ * @ORM\Entity
  *
  * @JMS\ExclusionPolicy("all")
  */
