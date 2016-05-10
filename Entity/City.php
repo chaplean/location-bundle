@@ -8,8 +8,8 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * City
  *
- * @ORM\Table(name="cl_city", indexes={@ORM\Index(name="zipcode_INDEX", columns={"zipcode"})})
- * @ORM\Entity
+ * @ORM\Table(name="cl_city", indexes={@ORM\Index(name="city_zipcode_INDEX", columns={"zipcode"})})
+ * @ORM\Entity(repositoryClass="Chaplean\Bundle\LocationBundle\Repository\CityRepository")
  *
  * @JMS\ExclusionPolicy("all")
  */

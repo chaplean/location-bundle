@@ -6,7 +6,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="cl_location", indexes={@ORM\Index(name="name_INDEX", columns={"name"})})
+ * @ORM\Table(name="cl_location", indexes={@ORM\Index(name="location_name_INDEX", columns={"name"})})
  *
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="dtype", type="string")
