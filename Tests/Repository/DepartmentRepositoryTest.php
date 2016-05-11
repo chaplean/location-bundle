@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaplean\Bundle\LocationBundle\Tests\Repository;
+namespace Tests\Chaplean\Bundle\LocationBundle\Repository;
 
 use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
@@ -17,20 +17,6 @@ class DepartmentRepositoryTest extends LogicalTest
 {
     /** @var  EntityRepository */
     protected $departmentRepository;
-
-    /**
-     * @return void
-     */
-    public static function setUpBeforeClass()
-    {
-        self::loadStaticFixtures(
-            array(
-                'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\LoadCityData',
-                'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\LoadDepartmentData',
-                'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\LoadRegionData'
-            )
-        );
-    }
 
     /**
      * @return void

@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaplean\Bundle\LocationBundle\Tests\Entity;
+namespace Tests\Chaplean\Bundle\LocationBundle\Entity;
 
 use Chaplean\Bundle\LocationBundle\Entity\City;
 use Chaplean\Bundle\LocationBundle\Entity\Department;

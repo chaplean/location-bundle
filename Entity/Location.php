@@ -6,17 +6,15 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="cl_location", indexes={@ORM\Index(name="name_INDEX", columns={"name"})})
+ * @ORM\Table(name="cl_location", indexes={@ORM\Index(name="location_name_INDEX", columns={"name"})})
  *
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="dtype", type="string")
- * @ORM\DiscriminatorMap(
- *     {
+ * @ORM\DiscriminatorMap({
  *     "city"="Chaplean\Bundle\LocationBundle\Entity\City",
  *     "department"="Chaplean\Bundle\LocationBundle\Entity\Department",
  *     "region"="Chaplean\Bundle\LocationBundle\Entity\Region"
- * }
- * )
+ * })
  *
  * @JMS\ExclusionPolicy("all")
  */

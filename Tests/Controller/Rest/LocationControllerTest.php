@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaplean\Bundle\LocationBundle\Tests\Controller\Rest;
+namespace Tests\Chaplean\Bundle\LocationBundle\Controller\Rest;
 
 use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
 
@@ -13,18 +13,6 @@ use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
  */
 class LocationControllerTest extends LogicalTest
 {
-    /**
-     * @return void
-     */
-    public static function setUpBeforeClass()
-    {
-        parent::setUpBeforeClass(array(
-            'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\LoadCityData',
-            'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\LoadDepartmentData',
-            'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\LoadRegionData'
-        ));
-    }
-
     /**
      * @return void
      */
