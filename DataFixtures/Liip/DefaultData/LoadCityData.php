@@ -1,11 +1,11 @@
 <?php
 
-namespace Chaplean\Bundle\LocationBundle\DataFixtures\Liip;
+namespace Chaplean\Bundle\LocationBundle\DataFixtures\Liip\DefaultData;
 
 use Chaplean\Bundle\CsvBundle\Utility\CsvReader;
 use Chaplean\Bundle\LocationBundle\Entity\City;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
@@ -15,7 +15,7 @@ use Doctrine\Common\Persistence\ObjectManager;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
  * @since     1.0.0
  */
-class LoadCityData extends AbstractFixture implements OrderedFixtureInterface
+class LoadCityData extends AbstractFixture implements DependentFixtureInterface
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -26,7 +26,7 @@ class LoadCityData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $fileCity = new CsvReader(__DIR__ . '/../../Resources/doc/cities_test.csv');
+        $fileCity = new CsvReader(__DIR__ . '/../../../Tests/Resources/doc/cities_test.csv');
 
         $cities = $fileCity->extractData(';');
 
@@ -46,12 +46,15 @@ class LoadCityData extends AbstractFixture implements OrderedFixtureInterface
     }
 
     /**
-     * Get the order of this fixture
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on
      *
-     * @return integer
+     * @return array
      */
-    public function getOrder()
+    function getDependencies()
     {
-        return 3;
+        return array(
+            'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\DefaultData\LoadDepartmentData'
+        );
     }
 }
