@@ -49,7 +49,7 @@ class LoadDepartmentData extends AbstractFixture implements DependentFixtureInte
      *
      * @return array
      */
-    function getDependencies()
+    public function getDependencies()
     {
         return array(
             'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\DefaultData\LoadRegionData'

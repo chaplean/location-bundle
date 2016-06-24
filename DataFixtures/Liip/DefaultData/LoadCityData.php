@@ -51,7 +51,7 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
      *
      * @return array
      */
-    function getDependencies()
+    public function getDependencies()
     {
         return array(
             'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\DefaultData\LoadDepartmentData'
