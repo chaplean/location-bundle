@@ -5,7 +5,6 @@ namespace Chaplean\Bundle\LocationBundle\DataFixtures\ORM;
 use Chaplean\Bundle\CsvBundle\Utility\CsvReader;
 use Chaplean\Bundle\LocationBundle\Entity\Region;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
@@ -15,7 +14,7 @@ use Doctrine\Common\Persistence\ObjectManager;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
  * @since     1.0.0
  */
-class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface
+class LoadRegionData extends AbstractFixture
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -78,13 +77,5 @@ class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface
         );
 
         return 'region-' . $oldToNewCode[$oldCode];
-    }
-
-    /**
-     * @return integer
-     */
-    public function getOrder()
-    {
-        return 1;
     }
 }
