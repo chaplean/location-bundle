@@ -33,11 +33,15 @@ class City extends Location
     private $zipcode;
 
     /**
+     * @var float
+     *
      * @ORM\Column(type="decimal", length=10, nullable=false, name="latitude", precision=10, scale=7)
      */
     private $latitude;
 
     /**
+     * @var float
+     *
      * @ORM\Column(type="decimal", length=10, nullable=false, name="longitude", precision=10, scale=7)
      */
     private $longitude;
@@ -75,6 +79,54 @@ class City extends Location
     public function getZipcode()
     {
         return $this->zipcode;
+    }
+
+    /**
+     * Get latitude.
+     *
+     * @return float
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set latitude.
+     *
+     * @param float $latitude
+     *
+     * @return self
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude.
+     *
+     * @return float
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set longitude.
+     *
+     * @param float $longitude
+     *
+     * @return self
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
     }
 
     /**
