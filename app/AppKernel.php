@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new Liip\FunctionalTestBundle\LiipFunctionalTestBundle(),
             new Chaplean\Bundle\UnitBundle\ChapleanUnitBundle(),
             new Chaplean\Bundle\LocationBundle\ChapleanLocationBundle(),
+            new Chaplean\Bundle\CsvBundle\ChapleanCsvBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
         );
