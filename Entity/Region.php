@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation as JMS;
  *     name="cl_region",
  *     uniqueConstraints={@ORM\UniqueConstraint(name="region_code_UNIQUE", columns={"code"})}
  * )
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Chaplean\Bundle\LocationBundle\Repository\RegionRepository")
  *
  * @JMS\ExclusionPolicy("all")
  */
