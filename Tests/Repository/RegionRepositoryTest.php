@@ -3,8 +3,8 @@
 namespace Tests\Chaplean\Bundle\LocationBundle\Repository;
 
 use Chaplean\Bundle\LocationBundle\Entity\Region;
+use Chaplean\Bundle\LocationBundle\Repository\RegionRepository;
 use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
-use Doctrine\ORM\EntityRepository;
 
 /**
  * RegionRepositoryTest.php.
@@ -15,7 +15,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class RegionRepositoryTest extends LogicalTest
 {
-    /** @var  EntityRepository */
+    /**
+     * @var RegionRepository
+     */
     protected $regionRepository;
 
     /**
@@ -43,8 +45,7 @@ class RegionRepositoryTest extends LogicalTest
     {
         $region = $this->regionRepository->findOneBy(array('name' => 'Aquitaine'));
 
-        $this->assertTrue($region instanceof Region);
-
+        $this->assertInstanceOf(Region::class, $region);
         $this->assertEquals('1', $region->getId());
         $this->assertEquals('Aquitaine', $region->getName());
     }
@@ -56,7 +57,7 @@ class RegionRepositoryTest extends LogicalTest
     {
         $region = $this->regionRepository->findOneBy(array('code' => '74'));
 
-        $this->assertTrue($region instanceof Region);
+        $this->assertInstanceOf(Region::class, $region);
         $this->assertEquals('74', $region->getCode());
         $this->assertEquals('Limousin', $region->getName());
     }
