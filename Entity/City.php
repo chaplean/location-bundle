@@ -8,8 +8,15 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * City
  *
- * @ORM\Table(name="cl_city", indexes={@ORM\Index(name="city_zipcode_INDEX", columns={"zipcode"})})
- * @ORM\Entity(repositoryClass="Chaplean\Bundle\LocationBundle\Repository\CityRepository")
+ * @ORM\Table(
+ *     name="cl_city",
+ *     indexes={
+ *         @ORM\Index(name="city_zipcode_INDEX", columns={"zipcode"}),
+ *         @ORM\Index(name="city_latitude_INDEX", columns={"latitude"}),
+ *         @ORM\Index(name="city_longitude_INDEX", columns={"longitude"})
+ *     }
+ * )
+ * @ORM\Entity
  *
  * @JMS\ExclusionPolicy("all")
  */
@@ -24,6 +31,20 @@ class City extends Location
      * @JMS\Groups({"city_zipcode"})
      */
     private $zipcode;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="decimal", length=10, nullable=false, name="latitude", precision=10, scale=7)
+     */
+    private $latitude;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="decimal", length=10, nullable=false, name="longitude", precision=10, scale=7)
+     */
+    private $longitude;
 
     /**
      * @var Department
@@ -58,6 +79,54 @@ class City extends Location
     public function getZipcode()
     {
         return $this->zipcode;
+    }
+
+    /**
+     * Get latitude.
+     *
+     * @return float
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set latitude.
+     *
+     * @param float $latitude
+     *
+     * @return self
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude.
+     *
+     * @return float
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set longitude.
+     *
+     * @param float $longitude
+     *
+     * @return self
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
     }
 
     /**

@@ -40,10 +40,14 @@ class CityTest extends LogicalTest
 
         $city->setName('SuperCity');
         $city->setZipcode(15000);
+        $city->setLatitude(44.9167);
+        $city->setLongitude(2.45);
         $city->setDepartment(new Department());
 
         $this->assertEquals('SuperCity', $city->getName());
         $this->assertEquals(15000, $city->getZipcode());
+        $this->assertEquals(44.9167, $city->getLatitude());
+        $this->assertEquals(2.45, $city->getLongitude());
         $this->assertInstanceOf(Department::class, $city->getDepartment());
     }
 
@@ -56,6 +60,8 @@ class CityTest extends LogicalTest
 
         $city->setName('SuperCity');
         $city->setZipcode(15000);
+        $city->setLatitude(44.9167);
+        $city->setLongitude(2.45);
         $city->setDepartment(new Department());
 
         $citySerialized = $this->serializer->serialize($city, 'json');
@@ -80,6 +86,8 @@ class CityTest extends LogicalTest
 
         $city->setName('SuperCity');
         $city->setZipcode(15000);
+        $city->setLatitude(44.9167);
+        $city->setLongitude(2.45);
         $city->setDepartment(new Department());
 
         $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(array('location_name')));
@@ -97,6 +105,8 @@ class CityTest extends LogicalTest
         $city = new City();
         $city->setName('SuperCity');
         $city->setZipcode(15000);
+        $city->setLatitude(44.9167);
+        $city->setLongitude(2.45);
         $city->setDepartment(new Department());
 
         $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(array('location_name', 'city_zipcode')));
@@ -121,6 +131,8 @@ class CityTest extends LogicalTest
         $city = new City();
         $city->setName('SuperCity');
         $city->setZipcode(15000);
+        $city->setLatitude(44.9167);
+        $city->setLongitude(2.45);
         $city->setDepartment($department);
 
         $this->assertInstanceOf(Region::class, $city->getRegion());
