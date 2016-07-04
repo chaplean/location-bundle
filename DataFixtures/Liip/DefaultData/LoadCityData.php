@@ -35,6 +35,8 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
             $city = new City();
             $city->setName(str_replace('"', '', ucwords($cityTxt[1])));
             $city->setZipcode(str_replace('"', '', $cityTxt[2]));
+            $city->setLatitude(str_replace('"', '', $cityTxt[4]));
+            $city->setLongitude(str_replace('"', '', $cityTxt[3]));
             $city->setDepartment($this->getReference('department-' . str_replace('"', '', $cityTxt[0])));
 
             $this->setReference('city-' . $cpt, $city);

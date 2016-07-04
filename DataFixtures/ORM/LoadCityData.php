@@ -32,6 +32,8 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
         foreach ($cities as $cityTxt) {
             $name = str_replace('"', '', ucwords($cityTxt[5]));
             $zipcode = str_replace('"', '', $cityTxt[8]);
+            $latitude = str_replace('"', '', $cityTxt[20]);
+            $longitude =str_replace('"', '', $cityTxt[19]);
             $department = str_replace('"', '', $cityTxt[1]);
             $zipcodes = explode('-', $zipcode);
 
@@ -40,6 +42,8 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
                     $city = new City();
                     $city->setName($name);
                     $city->setZipcode($zipcode);
+                    $city->setLatitude($latitude);
+                    $city->setLongitude($longitude);
                     $city->setDepartment($this->getReference('department-' . $department));
                     $manager->persist($city);
                 }
@@ -47,6 +51,8 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
                 $city = new City();
                 $city->setName($name);
                 $city->setZipcode($zipcode);
+                $city->setLatitude($latitude);
+                $city->setLongitude($longitude);
                 $city->setDepartment($this->getReference('department-' . $department));
                 $manager->persist($city);
             }
