@@ -8,8 +8,15 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * City
  *
- * @ORM\Table(name="cl_city", indexes={@ORM\Index(name="city_zipcode_INDEX", columns={"zipcode"})})
- * @ORM\Entity(repositoryClass="Chaplean\Bundle\LocationBundle\Repository\CityRepository")
+ * @ORM\Table(
+ *     name="cl_city",
+ *     indexes={
+ *         @ORM\Index(name="city_zipcode_INDEX", columns={"zipcode"}),
+ *         @ORM\Index(name="city_latitude_INDEX", columns={"latitude"}),
+ *         @ORM\Index(name="city_longitude_INDEX", columns={"longitude"})
+ *     }
+ * )
+ * @ORM\Entity
  *
  * @JMS\ExclusionPolicy("all")
  */
@@ -24,6 +31,16 @@ class City extends Location
      * @JMS\Groups({"city_zipcode"})
      */
     private $zipcode;
+
+    /**
+     * @ORM\Column(type="decimal", length=10, nullable=false, name="latitude", precision=10, scale=7)
+     */
+    private $latitude;
+
+    /**
+     * @ORM\Column(type="decimal", length=10, nullable=false, name="longitude", precision=10, scale=7)
+     */
+    private $longitude;
 
     /**
      * @var Department
