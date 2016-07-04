@@ -78,6 +78,16 @@ class CityRepositoryTest extends LogicalTest
     /**
      * @return void
      */
+    public function testFindOneCityByNameAndCoordinatesUnknownName()
+    {
+        $city = $this->cityRepository->findOneByNameAndCoordinates('Test', 47.0833, 2.4);
+
+        $this->assertNull($city);
+    }
+
+    /**
+     * @return void
+     */
     public function testFindOneCityByNameAndCoordinatesWithSameName()
     {
         $city = $this->cityRepository->findOneByNameAndCoordinates('Bordeaux', 44.83, -0.57);
