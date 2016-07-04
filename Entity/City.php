@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
  *         @ORM\Index(name="city_longitude_INDEX", columns={"longitude"})
  *     }
  * )
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Chaplean\Bundle\LocationBundle\Repository\CityRepository")
  *
  * @JMS\ExclusionPolicy("all")
  */

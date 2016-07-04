@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation as JMS;
  *     name="cl_department",
  *     uniqueConstraints={@ORM\UniqueConstraint(name="department_code_UNIQUE", columns={"code"})}
  * )
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Chaplean\Bundle\LocationBundle\Repository\DepartmentRepository")
  *
  * @JMS\ExclusionPolicy("all")
  */
