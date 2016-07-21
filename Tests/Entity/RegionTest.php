@@ -1,10 +1,10 @@
 <?php
 
-namespace Chaplean\Bundle\LocationBundle\Tests\Entity;
+namespace Tests\Chaplean\Bundle\LocationBundle\Entity;
 
 use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Chaplean\Bundle\LocationBundle\Entity\Region;
-use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
+use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 
@@ -15,7 +15,7 @@ use JMS\Serializer\Serializer;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
  * @since     1.0.0
  */
-class RegionTest extends LogicalTest
+class RegionTest extends LogicalTestCase
 {
     /**
      * @var Serializer
@@ -27,6 +27,8 @@ class RegionTest extends LogicalTest
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->serializer = $this->getContainer()->get('jms_serializer');
     }
 

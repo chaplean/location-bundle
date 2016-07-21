@@ -5,7 +5,7 @@ namespace Chaplean\Bundle\LocationBundle\DataFixtures\ORM;
 use Chaplean\Bundle\CsvBundle\Utility\CsvReader;
 use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
@@ -15,7 +15,7 @@ use Doctrine\Common\Persistence\ObjectManager;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
  * @since     1.0.0
  */
-class LoadDepartmentData extends AbstractFixture implements OrderedFixtureInterface
+class LoadDepartmentData extends AbstractFixture implements DependentFixtureInterface
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -28,6 +28,7 @@ class LoadDepartmentData extends AbstractFixture implements OrderedFixtureInterf
     {
         $fileDepartment = new CsvReader(__DIR__ . '/../../Resources/doc/departments_2014.csv');
         $departments = $fileDepartment->extractData("\t", 1);
+
         foreach ($departments as $departmentTxt) {
             $department = new Department();
             $department->setCode($departmentTxt[1]);
@@ -41,10 +42,15 @@ class LoadDepartmentData extends AbstractFixture implements OrderedFixtureInterf
     }
 
     /**
-     * @return int
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on
+     *
+     * @return array
      */
-    public function getOrder()
+    public function getDependencies()
     {
-        return 2;
+        return array(
+            'Chaplean\Bundle\LocationBundle\DataFixtures\ORM\LoadRegionData',
+        );
     }
 }

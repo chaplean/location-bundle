@@ -1,11 +1,11 @@
 <?php
 
-namespace Chaplean\Bundle\LocationBundle\Tests\Entity;
+namespace Tests\Chaplean\Bundle\LocationBundle\Entity;
 
 use Chaplean\Bundle\LocationBundle\Entity\City;
 use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Chaplean\Bundle\LocationBundle\Entity\Region;
-use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
+use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 
@@ -16,7 +16,7 @@ use JMS\Serializer\Serializer;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
  * @since     1.0.0
  */
-class CityTest extends LogicalTest
+class CityTest extends LogicalTestCase
 {
     /**
      * @var Serializer
@@ -28,6 +28,8 @@ class CityTest extends LogicalTest
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->serializer = $this->getContainer()->get('jms_serializer');
     }
 
@@ -40,10 +42,14 @@ class CityTest extends LogicalTest
 
         $city->setName('SuperCity');
         $city->setZipcode(15000);
+        $city->setLatitude(44.9167);
+        $city->setLongitude(2.45);
         $city->setDepartment(new Department());
 
         $this->assertEquals('SuperCity', $city->getName());
         $this->assertEquals(15000, $city->getZipcode());
+        $this->assertEquals(44.9167, $city->getLatitude());
+        $this->assertEquals(2.45, $city->getLongitude());
         $this->assertInstanceOf(Department::class, $city->getDepartment());
     }
 
@@ -56,6 +62,8 @@ class CityTest extends LogicalTest
 
         $city->setName('SuperCity');
         $city->setZipcode(15000);
+        $city->setLatitude(44.9167);
+        $city->setLongitude(2.45);
         $city->setDepartment(new Department());
 
         $citySerialized = $this->serializer->serialize($city, 'json');
@@ -80,6 +88,8 @@ class CityTest extends LogicalTest
 
         $city->setName('SuperCity');
         $city->setZipcode(15000);
+        $city->setLatitude(44.9167);
+        $city->setLongitude(2.45);
         $city->setDepartment(new Department());
 
         $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(array('location_name')));
@@ -97,6 +107,8 @@ class CityTest extends LogicalTest
         $city = new City();
         $city->setName('SuperCity');
         $city->setZipcode(15000);
+        $city->setLatitude(44.9167);
+        $city->setLongitude(2.45);
         $city->setDepartment(new Department());
 
         $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(array('location_name', 'city_zipcode')));
@@ -121,6 +133,8 @@ class CityTest extends LogicalTest
         $city = new City();
         $city->setName('SuperCity');
         $city->setZipcode(15000);
+        $city->setLatitude(44.9167);
+        $city->setLongitude(2.45);
         $city->setDepartment($department);
 
         $this->assertInstanceOf(Region::class, $city->getRegion());

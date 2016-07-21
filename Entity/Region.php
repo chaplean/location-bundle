@@ -9,8 +9,11 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * Region
  *
- * @ORM\Table(name="cl_region", uniqueConstraints={@ORM\UniqueConstraint(name="code_INDEX", columns={"code"})})
- * @ORM\Entity
+ * @ORM\Table(
+ *     name="cl_region",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="region_code_UNIQUE", columns={"code"})}
+ * )
+ * @ORM\Entity(repositoryClass="Chaplean\Bundle\LocationBundle\Repository\RegionRepository")
  *
  * @JMS\ExclusionPolicy("all")
  */

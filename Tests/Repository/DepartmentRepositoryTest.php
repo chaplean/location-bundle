@@ -1,10 +1,10 @@
 <?php
 
-namespace Chaplean\Bundle\LocationBundle\Tests\Repository;
+namespace Tests\Chaplean\Bundle\LocationBundle\Repository;
 
 use Chaplean\Bundle\LocationBundle\Entity\Department;
-use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
-use Doctrine\ORM\EntityRepository;
+use Chaplean\Bundle\LocationBundle\Repository\DepartmentRepository;
+use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
 
 /**
  * RegionRepositoryTest.php.
@@ -13,30 +13,20 @@ use Doctrine\ORM\EntityRepository;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
  * @since     1.0.0
  */
-class DepartmentRepositoryTest extends LogicalTest
+class DepartmentRepositoryTest extends LogicalTestCase
 {
-    /** @var  EntityRepository */
-    protected $departmentRepository;
-
     /**
-     * @return void
+     * @var DepartmentRepository
      */
-    public static function setUpBeforeClass()
-    {
-        self::loadStaticFixtures(
-            array(
-                'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\LoadCityData',
-                'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\LoadDepartmentData',
-                'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\LoadRegionData'
-            )
-        );
-    }
+    protected $departmentRepository;
 
     /**
      * @return void
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->departmentRepository = $this->em->getRepository('ChapleanLocationBundle:Department');
     }
 
@@ -57,7 +47,7 @@ class DepartmentRepositoryTest extends LogicalTest
     {
         $department = $this->departmentRepository->findOneBy(array('id' => '5'));
 
-        $this->assertTrue($department instanceof Department);
+        $this->assertInstanceOf(Department::class, $department);
         $this->assertEquals('Haute-Vienne', $department->getName());
         $this->assertEquals('2', $department->getRegion()->getId());
     }
@@ -69,7 +59,7 @@ class DepartmentRepositoryTest extends LogicalTest
     {
         $department = $this->departmentRepository->findOneBy(array('name' => 'Cher'));
 
-        $this->assertTrue($department instanceof Department);
+        $this->assertInstanceOf(Department::class, $department);
         $this->assertEquals('6', $department->getId());
         $this->assertEquals('3', $department->getRegion()->getId());
     }
@@ -83,7 +73,7 @@ class DepartmentRepositoryTest extends LogicalTest
         $region = $regionRepository->findOneBy(array('name' => 'Aquitaine'));
         $department = $this->departmentRepository->findOneBy(array('region' => $region));
 
-        $this->assertTrue($department instanceof Department);
+        $this->assertInstanceOf(Department::class, $department);
         $this->assertEquals('4', $department->getId());
         $this->assertEquals('Gironde', $department->getName());
     }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Chaplean\Bundle\LocationBundle\Tests\Repository;
+namespace Tests\Chaplean\Bundle\LocationBundle\Repository;
 
 use Chaplean\Bundle\LocationBundle\Entity\Region;
-use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
-use Doctrine\ORM\EntityRepository;
+use Chaplean\Bundle\LocationBundle\Repository\RegionRepository;
+use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
 
 /**
  * RegionRepositoryTest.php.
@@ -13,30 +13,20 @@ use Doctrine\ORM\EntityRepository;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
  * @since     1.0.0
  */
-class RegionRepositoryTest extends LogicalTest
+class RegionRepositoryTest extends LogicalTestCase
 {
-    /** @var  EntityRepository */
-    protected $regionRepository;
-
     /**
-     * @return void
+     * @var RegionRepository
      */
-    public static function setUpBeforeClass()
-    {
-        self::loadStaticFixtures(
-            array(
-                'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\LoadCityData',
-                'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\LoadDepartmentData',
-                'Chaplean\Bundle\LocationBundle\DataFixtures\Liip\LoadRegionData'
-            )
-        );
-    }
+    protected $regionRepository;
 
     /**
      * @return void
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->regionRepository = $this->em->getRepository('ChapleanLocationBundle:Region');
     }
 
@@ -57,8 +47,7 @@ class RegionRepositoryTest extends LogicalTest
     {
         $region = $this->regionRepository->findOneBy(array('name' => 'Aquitaine'));
 
-        $this->assertTrue($region instanceof Region);
-
+        $this->assertInstanceOf(Region::class, $region);
         $this->assertEquals('1', $region->getId());
         $this->assertEquals('Aquitaine', $region->getName());
     }
@@ -70,7 +59,7 @@ class RegionRepositoryTest extends LogicalTest
     {
         $region = $this->regionRepository->findOneBy(array('code' => '74'));
 
-        $this->assertTrue($region instanceof Region);
+        $this->assertInstanceOf(Region::class, $region);
         $this->assertEquals('74', $region->getCode());
         $this->assertEquals('Limousin', $region->getName());
     }
