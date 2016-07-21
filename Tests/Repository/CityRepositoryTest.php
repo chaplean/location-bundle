@@ -4,7 +4,7 @@ namespace Tests\Chaplean\Bundle\LocationBundle\Repository;
 
 use Chaplean\Bundle\LocationBundle\Entity\City;
 use Chaplean\Bundle\LocationBundle\Repository\CityRepository;
-use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
+use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
 
 /**
  * RegionRepositoryTest.php.
@@ -13,7 +13,7 @@ use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
  * @since     1.0.0
  */
-class CityRepositoryTest extends LogicalTest
+class CityRepositoryTest extends LogicalTestCase
 {
     /**
      * @var CityRepository
@@ -25,6 +25,8 @@ class CityRepositoryTest extends LogicalTest
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->cityRepository = $this->em->getRepository('ChapleanLocationBundle:City');
     }
 

@@ -5,7 +5,7 @@ namespace Tests\Chaplean\Bundle\LocationBundle\Entity;
 use Chaplean\Bundle\LocationBundle\Entity\City;
 use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Chaplean\Bundle\LocationBundle\Entity\Region;
-use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
+use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 
@@ -16,7 +16,7 @@ use JMS\Serializer\Serializer;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
  * @since     1.0.0
  */
-class CityTest extends LogicalTest
+class CityTest extends LogicalTestCase
 {
     /**
      * @var Serializer
@@ -28,6 +28,8 @@ class CityTest extends LogicalTest
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->serializer = $this->getContainer()->get('jms_serializer');
     }
 

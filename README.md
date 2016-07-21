@@ -1,28 +1,21 @@
 Getting Started With ChapleanLocationBundle
-=======================================
+===========================================
 
 # Prerequisites
 
 This version of the bundle requires Symfony 2.8+.
 
-### Installation
+# Installation
 
-Include ChapleanLocationBundle in `composer.json`
+## 1. Composer
 
-``` json
+```
 composer require chaplean/location-bundle
 ```
 
-Add bundle in `AppKernel.php`
+## 2. AppKernel.php
 
-```php
-<?php
-    //...
-    public function registerBundles()
-    {
-        return array (
-            //...
+Add
+```
             new Chaplean\Bundle\LocationBundle\ChapleanLocationBundle(),
-        );
-    }
 ```

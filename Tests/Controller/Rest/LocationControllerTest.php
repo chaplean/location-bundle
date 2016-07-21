@@ -2,7 +2,7 @@
 
 namespace Tests\Chaplean\Bundle\LocationBundle\Controller\Rest;
 
-use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
+use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
 
 /**
  * LocationControllerTest.php.
@@ -11,7 +11,7 @@ use Chaplean\Bundle\UnitBundle\Test\LogicalTest;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
  * @since     3.0.0
  */
-class LocationControllerTest extends LogicalTest
+class LocationControllerTest extends LogicalTestCase
 {
     /**
      * @return void
@@ -20,7 +20,7 @@ class LocationControllerTest extends LogicalTest
     {
         $client = $this->createRestClient();
 
-        $client->requestGet('/rest/location/search/{location}', array(
+        $client->request('GET', '/rest/location/search/{location}', array(
             'location' => 'haute-v'
         ));
 
@@ -37,7 +37,7 @@ class LocationControllerTest extends LogicalTest
     {
         $client = $this->createRestClient();
 
-        $client->requestGet('/rest/location/search/{location}', array(
+        $client->request('GET', '/rest/location/search/{location}', array(
             'location' => 'l'
         ));
 
@@ -53,7 +53,7 @@ class LocationControllerTest extends LogicalTest
     {
         $client = $this->createRestClient();
 
-        $client->requestGet('/rest/location/search/{location}', array(
+        $client->request('GET', '/rest/location/search/{location}', array(
             'location' => '18'
         ));
 
