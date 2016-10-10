@@ -26,7 +26,9 @@ class LoadRegionData extends AbstractFixture
     public function load(ObjectManager $manager)
     {
         $fileRegion = new CsvReader(__DIR__ . '/../../Resources/doc/regions_2016.csv');
-        $regions = $fileRegion->extractData(';');
+        $fileRegionCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_regions_2016.csv');
+
+        $regions = array_merge($fileRegion->extractData(';'), $fileRegionCom->extractData(';'));
 
         foreach ($regions as $reg) {
             $region = new Region();
@@ -74,6 +76,7 @@ class LoadRegionData extends AbstractFixture
             '91' => '76',
             '93' => '93',
             '94' => '94',
+            '99' => '99',
         );
 
         return 'region-' . $oldToNewCode[$oldCode];

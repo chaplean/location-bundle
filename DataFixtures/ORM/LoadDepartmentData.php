@@ -27,7 +27,9 @@ class LoadDepartmentData extends AbstractFixture implements DependentFixtureInte
     public function load(ObjectManager $manager)
     {
         $fileDepartment = new CsvReader(__DIR__ . '/../../Resources/doc/departments_2014.csv');
-        $departments = $fileDepartment->extractData("\t", 1);
+        $fileDepartmentCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_departments_2016.csv');
+
+        $departments = array_merge($fileDepartment->extractData("\t", 1), $fileDepartmentCom->extractData("\t", 1));
 
         foreach ($departments as $departmentTxt) {
             $department = new Department();
