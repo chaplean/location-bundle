@@ -140,4 +140,19 @@ class CityTest extends LogicalTestCase
         $this->assertInstanceOf(Region::class, $city->getRegion());
         $this->assertEquals('Region', $city->getRegion()->getName());
     }
+
+    /**
+     * @return void
+     */
+    public function testGetZipcodeString()
+    {
+        $city1 = new City();
+        $city1->setZipcode(33000);
+
+        $city2 = new City();
+        $city2->setZipcode(9000);
+
+        $this->assertEquals('33000', $city1->getZipcodeString());
+        $this->assertTrue('09000' === $city2->getZipcodeString()); // because assertEquals (is stupid) behaves like == and thinks '9000' == '09000'
+    }
 }

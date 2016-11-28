@@ -161,4 +161,12 @@ class City extends Location
     {
         return $this->department->getRegion();
     }
+
+    /**
+     * @return string
+     */
+    public function getZipcodeString()
+    {
+        return str_pad((string) $this->getZipcode(), 5, '0', STR_PAD_LEFT);
+    }
 }
