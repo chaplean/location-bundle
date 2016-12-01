@@ -34,8 +34,8 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
         foreach ($cities as $cityTxt) {
             $name = str_replace('"', '', ucwords($cityTxt[5]));
             $zipcode = str_replace('"', '', $cityTxt[8]);
-            $latitude = str_replace('"', '', $cityTxt[20]);
-            $longitude = str_replace('"', '', $cityTxt[19]);
+            $latitude = (float) str_replace('"', '', $cityTxt[20]);
+            $longitude = (float) str_replace('"', '', $cityTxt[19]);
             $department = str_replace('"', '', $cityTxt[1]);
             $zipcodes = explode('-', $zipcode);
 
