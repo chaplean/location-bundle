@@ -4,16 +4,16 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c56a1353f07358c8bafae32b891f5522",
-    "content-hash": "cd4bc4e4b71b06cd301fd2bd724a21d7",
+    "hash": "5f2dc923bd72706db054febc69199c5f",
+    "content-hash": "26428b8c848af668e0d4c9843a1225c3",
     "packages": [
         {
             "name": "chaplean/csv-bundle",
-            "version": "v4.0.1",
+            "version": "v5.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:chaplean/csv-bundle.git",
-                "reference": "11ff0c4f473173adc53c3c3f92618f6f4c28b634"
+                "reference": "68fa85ca103ff859e277164c06febe38c7953aef"
             },
             "require": {
                 "doctrine/doctrine-bundle": "~1.4",
@@ -64,7 +64,7 @@
                 }
             ],
             "description": "Parse CSV files",
-            "time": "2016-07-21 11:15:08"
+            "time": "2016-12-22 13:02:44"
         },
         {
             "name": "doctrine/annotations",
@@ -3073,7 +3073,6 @@
                 "rest",
                 "web service"
             ],
-            "abandoned": "guzzlehttp/guzzle",
             "time": "2015-03-18 18:23:50"
         },
         {
