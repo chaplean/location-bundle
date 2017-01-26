@@ -4,9 +4,9 @@ namespace Chaplean\Bundle\LocationBundle\Controller\Rest;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations;
-use JMS\Serializer\SerializationContext;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -42,9 +42,11 @@ class LocationController extends FOSRestController
         $regionsMatch = $regions->matching($criteria->where(Criteria::expr()->contains('name', $location)));
 
         $view = $this->view(array('results' => array_merge($citiesMatch->toArray(), $departmentsMatch->toArray(), $regionsMatch->toArray())));
-        $view->setSerializationContext(SerializationContext::create()->setGroups(array(
+        $context = new Context();
+        $context->setGroups(array(
             'location_id', 'location_name', 'city_zipcode'
-        )));
+        ));
+        $view->setContext($context);
 
         return $this->handleView($view);
     }
