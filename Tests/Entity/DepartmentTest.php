@@ -131,4 +131,47 @@ class DepartmentTest extends LogicalTestCase
 
         $this->assertCount(0, $department->getCities());
     }
+
+    /**
+     * @return array
+     */
+    public function containsLocationsProvider()
+    {
+        return [
+            ['department-33', 'region-72', false],
+            ['department-33', 'region-74', false],
+            ['department-33', 'department-33', true],
+            ['department-33', 'department-87', false],
+            ['department-33', 'city-1', true],
+            ['department-33', 'city-2', false],
+        ];
+    }
+
+    /**
+     * @dataProvider containsLocationsProvider
+     *
+     * @param string  $departmentName
+     * @param string  $locationName
+     * @param boolean $expected
+     *
+     * @return void
+     */
+    public function testContainsLocation($departmentName, $locationName, $expected)
+    {
+        $department = $this->getReference($departmentName);
+        $location = $this->getReference($locationName);
+
+        $this->assertEquals($expected, $department->containsLocation($location));
+        $this->assertEquals($expected, $location->isLocatedIn($department));
+    }
+
+    /**
+     * @return void
+     */
+    public function testContainsLocationWithNull()
+    {
+        $location = $this->getReference('department-33');
+
+        $this->assertFalse($location->isLocatedIn(null));
+    }
 }
