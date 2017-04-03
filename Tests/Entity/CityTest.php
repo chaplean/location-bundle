@@ -155,4 +155,47 @@ class CityTest extends LogicalTestCase
         $this->assertEquals('33000', $city1->getZipcodeString());
         $this->assertTrue('09000' === $city2->getZipcodeString()); // because assertEquals (is stupid) behaves like == and thinks '9000' == '09000'
     }
+
+    /**
+     * @return array
+     */
+    public function containsLocationsProvider()
+    {
+        return [
+            ['city-1', 'region-72', false],
+            ['city-1', 'region-74', false],
+            ['city-1', 'department-33', false],
+            ['city-1', 'department-87', false],
+            ['city-1', 'city-1', true],
+            ['city-1', 'city-2', false],
+        ];
+    }
+
+    /**
+     * @dataProvider containsLocationsProvider
+     *
+     * @param string  $cityName
+     * @param string  $locationName
+     * @param boolean $expected
+     *
+     * @return void
+     */
+    public function testContainsLocation($cityName, $locationName, $expected)
+    {
+        $city = $this->getReference($cityName);
+        $location = $this->getReference($locationName);
+
+        $this->assertEquals($expected, $city->containsLocation($location));
+        $this->assertEquals($expected, $location->isLocatedIn($city));
+    }
+
+    /**
+     * @return void
+     */
+    public function testContainsLocationWithNull()
+    {
+        $location = $this->getReference('city-1');
+
+        $this->assertFalse($location->isLocatedIn(null));
+    }
 }

@@ -120,4 +120,47 @@ class RegionTest extends LogicalTestCase
 
         $this->assertCount(0, $region->getDepartments());
     }
+
+    /**
+     * @return array
+     */
+    public function containsLocationsProvider()
+    {
+        return [
+            ['region-72', 'region-72', true],
+            ['region-72', 'region-74', false],
+            ['region-72', 'department-33', true],
+            ['region-72', 'department-87', false],
+            ['region-72', 'city-1', true],
+            ['region-72', 'city-2', false],
+        ];
+    }
+
+    /**
+     * @dataProvider containsLocationsProvider
+     *
+     * @param string  $regionName
+     * @param string  $locationName
+     * @param boolean $expected
+     *
+     * @return void
+     */
+    public function testContainsLocation($regionName, $locationName, $expected)
+    {
+        $region = $this->getReference($regionName);
+        $location = $this->getReference($locationName);
+
+        $this->assertEquals($expected, $region->containsLocation($location));
+        $this->assertEquals($expected, $location->isLocatedIn($region));
+    }
+
+    /**
+     * @return void
+     */
+    public function testContainsLocationWithNull()
+    {
+        $location = $this->getReference('region-72');
+
+        $this->assertFalse($location->isLocatedIn(null));
+    }
 }

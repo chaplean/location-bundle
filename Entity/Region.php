@@ -71,7 +71,7 @@ class Region extends Location
 
         return $this;
     }
-    
+
     /**
      * Add department
      *
@@ -106,5 +106,47 @@ class Region extends Location
     public function getDepartments()
     {
         return $this->departments;
+    }
+
+    /**
+     * Get the Region associated with this Location if any
+     *
+     * @return Region|null
+     */
+    public function getRegion()
+    {
+        return $this;
+    }
+
+    /**
+     * Get the Department associated with this Location if any
+     *
+     * @return Department|null
+     */
+    public function getDepartment()
+    {
+        return null;
+    }
+
+    /**
+     * Get the City associated with this Location if any
+     *
+     * @return City|null
+     */
+    public function getCity()
+    {
+        return null;
+    }
+
+    /**
+     * Returns wether or not the given $location contains this Location
+     *
+     * @param Location|null $location
+     *
+     * @return boolean
+     */
+    public function containsLocation(Location $location = null)
+    {
+        return $this->compareIds($location !== null ? $location->getRegion() : null);
     }
 }
