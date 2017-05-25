@@ -2,6 +2,7 @@
 
 namespace Chaplean\Bundle\LocationBundle\Repository;
 
+use Chaplean\Bundle\LocationBundle\Entity\Region;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -14,5 +15,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class RegionRepository extends EntityRepository
 {
-    /**/
+    /**
+     * @param string $zipcode
+     *
+     * @return Region
+     */
+    public function findByZipcode($zipcode)
+    {
+        $qb = $this->createQueryBuilder('r');
+        $qb->join('r.departments', 'd')
+            ->join('d.cities', 'c')
+            ->where($qb->expr()->eq('c.zipcode', $qb->expr()->literal($zipcode)))
+            ->groupBy('r.id');
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }
