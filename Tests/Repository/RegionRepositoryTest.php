@@ -92,4 +92,27 @@ class RegionRepositoryTest extends LogicalTestCase
 
         $this->assertNull($region);
     }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\RegionRepository::findOneByCode()
+     *
+     * @return void
+     */
+    public function testFindRegionByCode()
+    {
+        $region = $this->regionRepository->findOneByCode('18');
+
+        $this->assertInstanceOf(Region::class, $region);
+        $this->assertEquals('24', $region->getCode());
+        $this->assertEquals('Centre', $region->getName());
+
+        $region = $this->regionRepository->findOneByCode('33');
+
+        $this->assertInstanceOf(Region::class, $region);
+        $this->assertEquals('Aquitaine', $region->getName());
+
+        $region = $this->regionRepository->findOneByCode('99');
+
+        $this->assertNull($region);
+    }
 }

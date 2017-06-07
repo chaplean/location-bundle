@@ -30,4 +30,20 @@ class RegionRepository extends EntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+    /**
+     * @param string $code
+     *
+     * @return Region
+     */
+    public function findOneByCode($code)
+    {
+        $qb = $this->createQueryBuilder('r');
+        $qb->join('r.departments', 'd')
+            ->where(
+                $qb->expr()->eq('d.code', $qb->expr()->literal($code))
+            );
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }
