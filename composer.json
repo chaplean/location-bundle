@@ -31,8 +31,7 @@
         "chaplean/csv-bundle": "^6.0",
         "symfony/assetic-bundle": "~2.3",
         "friendsofsymfony/rest-bundle": "~2.1",
-        "jms/serializer-bundle": "^1.1",
-        "doctrine/data-fixtures": "1.2.*"
+        "jms/serializer-bundle": "^1.1"
     },
     "require-dev": {
         "chaplean/coding-standard": "1.1.*",
