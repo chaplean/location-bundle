@@ -10,8 +10,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 /**
  * LoadRegionData.php.
  *
- * @author    Valentin - Chaplean <valentin@chaplean.com>
- * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
+ * @author    Valentin - Chaplean <valentin@chaplean.coop>
+ * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     1.0.0
  */
 class LoadRegionData extends AbstractFixture
@@ -25,8 +25,8 @@ class LoadRegionData extends AbstractFixture
      */
     public function load(ObjectManager $manager)
     {
-        $fileRegion = new CsvReader(__DIR__ . '/../../../Tests/Resources/doc/regions_test.csv');
-        $regions = $fileRegion->extractData(';');
+        $fileRegion = new CsvReader(__DIR__ . '/../../../Tests/Resources/doc/regions_test.csv',';', 0);
+        $regions = $fileRegion->get();
 
         foreach ($regions as $regionTxt) {
             $region = new Region();

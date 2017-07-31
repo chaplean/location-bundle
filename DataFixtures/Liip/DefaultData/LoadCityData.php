@@ -11,8 +11,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 /**
  * LoadCityData.php.
  *
- * @author    Valentin - Chaplean <valentin@chaplean.com>
- * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
+ * @author    Valentin - Chaplean <valentin@chaplean.coop>
+ * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     1.0.0
  */
 class LoadCityData extends AbstractFixture implements DependentFixtureInterface
@@ -26,9 +26,9 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $fileCity = new CsvReader(__DIR__ . '/../../../Tests/Resources/doc/cities_test.csv');
+        $fileCity = new CsvReader(__DIR__ . '/../../../Tests/Resources/doc/cities_test.csv', ';', 0);
 
-        $cities = $fileCity->extractData(';');
+        $cities = $fileCity->get();
 
         $cpt = 1;
         foreach ($cities as $cityTxt) {

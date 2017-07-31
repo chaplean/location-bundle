@@ -11,8 +11,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 /**
  * LoadRegionData.php.
  *
- * @author    Valentin - Chaplean <valentin@chaplean.com>
- * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
+ * @author    Valentin - Chaplean <valentin@chaplean.coop>
+ * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     1.0.0
  */
 class LoadCityData extends AbstractFixture implements DependentFixtureInterface
@@ -26,10 +26,10 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $fileCity = new CsvReader(__DIR__ . '/../../Resources/doc/cities_2014.csv');
-        $fileCityCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_cities_2016.csv');
+        $fileCity = new CsvReader(__DIR__ . '/../../Resources/doc/cities_2014.csv', ',', 0);
+        $fileCityCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_cities_2016.csv', ',', 0);
 
-        $cities = array_merge($fileCity->extractData(','), $fileCityCom->extractData(','));
+        $cities = array_merge($fileCity->get(), $fileCityCom->get());
 
         foreach ($cities as $cityTxt) {
             $name = str_replace('"', '', ucwords($cityTxt[5]));
