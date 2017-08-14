@@ -12,8 +12,8 @@ use JMS\Serializer\Serializer;
 /**
  * CityTest.php.
  *
- * @author    Valentin - Chaplean <valentin@chaplean.com>
- * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
+ * @author    Valentin - Chaplean <valentin@chaplean.coop>
+ * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     1.0.0
  */
 class CityTest extends LogicalTestCase
@@ -34,6 +34,17 @@ class CityTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setZipcode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setLatitude()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setLongitude()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setDepartment()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getZipcode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getLatitude()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getLongitude()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getDepartment()
+     *
      * @return void
      */
     public function testCity()
@@ -120,6 +131,8 @@ class CityTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getRegion()
+     *
      * @return void
      */
     public function testGetRegion()
@@ -139,5 +152,69 @@ class CityTest extends LogicalTestCase
 
         $this->assertInstanceOf(Region::class, $city->getRegion());
         $this->assertEquals('Region', $city->getRegion()->getName());
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getZipcodeString()
+     *
+     * @return void
+     */
+    public function testGetZipcodeString()
+    {
+        $city1 = new City();
+        $city1->setZipcode(33000);
+
+        $city2 = new City();
+        $city2->setZipcode(9000);
+
+        $this->assertEquals('33000', $city1->getZipcodeString());
+        $this->assertTrue('09000' === $city2->getZipcodeString()); // because assertEquals (is stupid) behaves like == and thinks '9000' == '09000'
+    }
+
+    /**
+     * @return array
+     */
+    public function containsLocationsProvider()
+    {
+        return [
+            ['city-1', 'region-72', false],
+            ['city-1', 'region-74', false],
+            ['city-1', 'department-33', false],
+            ['city-1', 'department-87', false],
+            ['city-1', 'city-1', true],
+            ['city-1', 'city-2', false],
+        ];
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::containsLocation()
+     *
+     * @dataProvider containsLocationsProvider
+     *
+     * @param string  $cityName
+     * @param string  $locationName
+     * @param boolean $expected
+     *
+     * @return void
+     */
+    public function testContainsLocation($cityName, $locationName, $expected)
+    {
+        $city = $this->getReference($cityName);
+        $location = $this->getReference($locationName);
+
+        $this->assertEquals($expected, $city->containsLocation($location));
+        $this->assertEquals($expected, $location->isLocatedIn($city));
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::isLocatedIn()
+     *
+     * @return void
+     */
+    public function testContainsLocationWithNull()
+    {
+        $location = $this->getReference('city-1');
+
+        $this->assertFalse($location->isLocatedIn(null));
     }
 }

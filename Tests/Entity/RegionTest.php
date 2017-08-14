@@ -9,10 +9,10 @@ use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 
 /**
- * CityTest.php.
+ * RegionCity.php.
  *
- * @author    Valentin - Chaplean <valentin@chaplean.com>
- * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
+ * @author    Valentin - Chaplean <valentin@chaplean.coop>
+ * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     1.0.0
  */
 class RegionTest extends LogicalTestCase
@@ -29,10 +29,16 @@ class RegionTest extends LogicalTestCase
     {
         parent::setUp();
 
-        $this->serializer = $this->getContainer()->get('jms_serializer');
+        $this->serializer = $this->getContainer()
+            ->get('jms_serializer');
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::setName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::setCode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::getName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::getCode()
+     *
      * @return void
      */
     public function testRegion()
@@ -58,12 +64,15 @@ class RegionTest extends LogicalTestCase
 
         $regionSerialized = $this->serializer->serialize($region, 'json');
 
-        $this->assertEquals(array(
-            'name' => 'SuperRegion',
-            'code' => '05',
-            'departments' => array(),
-            'dtype' => 'region',
-        ), json_decode($regionSerialized, true));
+        $this->assertEquals(
+            array(
+                'name'        => 'SuperRegion',
+                'code'        => '05',
+                'departments' => array(),
+                'dtype'       => 'region',
+            ),
+            json_decode($regionSerialized, true)
+        );
     }
 
     /**
@@ -76,11 +85,19 @@ class RegionTest extends LogicalTestCase
         $region->setName('SuperRegion');
         $region->setCode('05');
 
-        $regionSerialized = $this->serializer->serialize($region, 'json', SerializationContext::create()->setGroups(array('location_name')));
+        $regionSerialized = $this->serializer->serialize(
+            $region,
+            'json',
+            SerializationContext::create()
+                ->setGroups(array('location_name'))
+        );
 
-        $this->assertEquals(array(
-            'name' => 'SuperRegion'
-        ), json_decode($regionSerialized, true));
+        $this->assertEquals(
+            array(
+                'name' => 'SuperRegion'
+            ),
+            json_decode($regionSerialized, true)
+        );
     }
 
     /**
@@ -93,15 +110,27 @@ class RegionTest extends LogicalTestCase
         $region->setName('SuperRegion');
         $region->setCode('05');
 
-        $regionSerialized = $this->serializer->serialize($region, 'json', SerializationContext::create()->setGroups(array('location_name', 'region_code')));
+        $regionSerialized = $this->serializer->serialize(
+            $region,
+            'json',
+            SerializationContext::create()
+                ->setGroups(array('location_name', 'region_code'))
+        );
 
-        $this->assertEquals(array(
-            'name' => 'SuperRegion',
-            'code' => '05',
-        ), json_decode($regionSerialized, true));
+        $this->assertEquals(
+            array(
+                'name' => 'SuperRegion',
+                'code' => '05',
+            ),
+            json_decode($regionSerialized, true)
+        );
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::getDepartments()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::addDepartment()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::removeDepartment()
+     *
      * @return void
      */
     public function testRegionDepartments()
@@ -119,5 +148,53 @@ class RegionTest extends LogicalTestCase
         $region->removeDepartment($department);
 
         $this->assertCount(0, $region->getDepartments());
+    }
+
+    /**
+     * @return array
+     */
+    public function containsLocationsProvider()
+    {
+        return [
+            ['region-72', 'region-72', true],
+            ['region-72', 'region-74', false],
+            ['region-72', 'department-33', true],
+            ['region-72', 'department-87', false],
+            ['region-72', 'city-1', true],
+            ['region-72', 'city-2', false],
+        ];
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::containsLocation()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::isLocatedIn()
+     *
+     * @dataProvider containsLocationsProvider
+     *
+     * @param string  $regionName
+     * @param string  $locationName
+     * @param boolean $expected
+     *
+     * @return void
+     */
+    public function testContainsLocation($regionName, $locationName, $expected)
+    {
+        $region = $this->getReference($regionName);
+        $location = $this->getReference($locationName);
+
+        $this->assertEquals($expected, $region->containsLocation($location));
+        $this->assertEquals($expected, $location->isLocatedIn($region));
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::isLocatedIn()
+     *
+     * @return void
+     */
+    public function testContainsLocationWithNull()
+    {
+        $location = $this->getReference('region-72');
+
+        $this->assertFalse($location->isLocatedIn(null));
     }
 }

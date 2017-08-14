@@ -11,9 +11,9 @@ use JMS\Serializer\Annotation as JMS;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="dtype", type="string")
  * @ORM\DiscriminatorMap({
- *     "city"="Chaplean\Bundle\LocationBundle\Entity\City",
- *     "department"="Chaplean\Bundle\LocationBundle\Entity\Department",
- *     "region"="Chaplean\Bundle\LocationBundle\Entity\Region"
+ *     "city":"Chaplean\Bundle\LocationBundle\Entity\City",
+ *     "department":"Chaplean\Bundle\LocationBundle\Entity\Department",
+ *     "region":"Chaplean\Bundle\LocationBundle\Entity\Region"
  * })
  *
  * @JMS\ExclusionPolicy("all")
@@ -74,5 +74,61 @@ abstract class Location
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * Returns wether or not this Location is contained by $location
+     *
+     * @param Location|null $location
+     *
+     * @return boolean
+     */
+    public function isLocatedIn(Location $location = null)
+    {
+        return $location !== null
+            ? $location->containsLocation($this)
+            : false;
+    }
+
+    /**
+     * Returns wether or not the given $location contains this Location
+     *
+     * @param Location|null $location
+     *
+     * @return boolean
+     */
+    abstract public function containsLocation(Location $location = null);
+
+    /**
+     * Get the Region associated with this Location if any
+     *
+     * @return Region|null
+     */
+    abstract public function getRegion();
+
+    /**
+     * Get the Department associated with this Location if any
+     *
+     * @return Department|null
+     */
+    abstract public function getDepartment();
+
+    /**
+     * Get the City associated with this Location if any
+     *
+     * @return City|null
+     */
+    abstract public function getCity();
+
+    /**
+     * @param Location|null $location
+     *
+     * @return bool
+     */
+    protected function compareIds(Location $location = null)
+    {
+        return $location !== null
+            ? $this->getId() === $location->getId()
+            : false;
     }
 }

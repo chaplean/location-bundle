@@ -7,13 +7,15 @@ use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
 /**
  * LocationControllerTest.php.
  *
- * @author    Valentin - Chaplean <valentin@chaplean.com>
- * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
+ * @author    Valentin - Chaplean <valentin@chaplean.coop>
+ * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     3.0.0
  */
 class LocationControllerTest extends LogicalTestCase
 {
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Controller\Rest\LocationController::getLocationAction()
+     *
      * @return void
      */
     public function testSearchLocation()
@@ -31,6 +33,8 @@ class LocationControllerTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Controller\Rest\LocationController::getLocationAction()
+     *
      * @return void
      */
     public function testSearchLocationMoreResult()
@@ -47,6 +51,8 @@ class LocationControllerTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Controller\Rest\LocationController::getLocationAction()
+     *
      * @return void
      */
     public function testSearchLocationZipcode()

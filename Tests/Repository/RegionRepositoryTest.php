@@ -9,8 +9,8 @@ use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
 /**
  * RegionRepositoryTest.php.
  *
- * @author    Valentin - Chaplean <valentin@chaplean.com>
- * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
+ * @author    Valentin - Chaplean <valentin@chaplean.coop>
+ * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     1.0.0
  */
 class RegionRepositoryTest extends LogicalTestCase
@@ -31,6 +31,8 @@ class RegionRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\RegionRepository::findAll()
+     *
      * @return void
      */
     public function testFindAllRegion()
@@ -41,6 +43,8 @@ class RegionRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\RegionRepository::findOneBy()
+     *
      * @return void
      */
     public function testFindRegionByName()
@@ -53,6 +57,8 @@ class RegionRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\RegionRepository::findOneBy()
+     *
      * @return void
      */
     public function testFindRegionById()
@@ -62,5 +68,51 @@ class RegionRepositoryTest extends LogicalTestCase
         $this->assertInstanceOf(Region::class, $region);
         $this->assertEquals('74', $region->getCode());
         $this->assertEquals('Limousin', $region->getName());
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\RegionRepository::findByZipcode()
+     *
+     * @return void
+     */
+    public function testFindRegionByZipcode()
+    {
+        $region = $this->regionRepository->findByZipcode('18570');
+
+        $this->assertInstanceOf(Region::class, $region);
+        $this->assertEquals('24', $region->getCode());
+        $this->assertEquals('Centre', $region->getName());
+
+        $region = $this->regionRepository->findByZipcode('33000');
+
+        $this->assertInstanceOf(Region::class, $region);
+        $this->assertEquals('Aquitaine', $region->getName());
+
+        $region = $this->regionRepository->findByZipcode('999999999');
+
+        $this->assertNull($region);
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\RegionRepository::findOneByCode()
+     *
+     * @return void
+     */
+    public function testFindRegionByCode()
+    {
+        $region = $this->regionRepository->findOneByCode('18');
+
+        $this->assertInstanceOf(Region::class, $region);
+        $this->assertEquals('24', $region->getCode());
+        $this->assertEquals('Centre', $region->getName());
+
+        $region = $this->regionRepository->findOneByCode('33');
+
+        $this->assertInstanceOf(Region::class, $region);
+        $this->assertEquals('Aquitaine', $region->getName());
+
+        $region = $this->regionRepository->findOneByCode('99');
+
+        $this->assertNull($region);
     }
 }

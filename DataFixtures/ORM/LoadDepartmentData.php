@@ -11,8 +11,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 /**
  * LoadRegionData.php.
  *
- * @author    Valentin - Chaplean <valentin@chaplean.com>
- * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
+ * @author    Valentin - Chaplean <valentin@chaplean.coop>
+ * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     1.0.0
  */
 class LoadDepartmentData extends AbstractFixture implements DependentFixtureInterface
@@ -26,8 +26,10 @@ class LoadDepartmentData extends AbstractFixture implements DependentFixtureInte
      */
     public function load(ObjectManager $manager)
     {
-        $fileDepartment = new CsvReader(__DIR__ . '/../../Resources/doc/departments_2014.csv');
-        $departments = $fileDepartment->extractData("\t", 1);
+        $fileDepartment = new CsvReader(__DIR__ . '/../../Resources/doc/departments_2014.csv', "\t", 0);
+        $fileDepartmentCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_departments_2016.csv', "\t", 0);
+
+        $departments = array_merge($fileDepartment->get(), $fileDepartmentCom->get());
 
         foreach ($departments as $departmentTxt) {
             $department = new Department();

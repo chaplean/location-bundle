@@ -161,4 +161,34 @@ class City extends Location
     {
         return $this->department->getRegion();
     }
+
+    /**
+     * @return string
+     */
+    public function getZipcodeString()
+    {
+        return str_pad((string) $this->getZipcode(), 5, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Get the City associated with this Location if any
+     *
+     * @return City|null
+     */
+    public function getCity()
+    {
+        return $this;
+    }
+
+    /**
+     * Returns wether or not the given $location contains this Location
+     *
+     * @param Location|null $location
+     *
+     * @return boolean
+     */
+    public function containsLocation(Location $location = null)
+    {
+        return $this->compareIds($location !== null ? $location->getCity() : null);
+    }
 }

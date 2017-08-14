@@ -10,10 +10,10 @@ use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 
 /**
- * CityTest.php.
+ * DepartmentTest.php.
  *
- * @author    Valentin - Chaplean <valentin@chaplean.com>
- * @copyright 2014 - 2015 Chaplean (http://www.chaplean.com)
+ * @author    Valentin - Chaplean <valentin@chaplean.coop>
+ * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     1.0.0
  */
 class DepartmentTest extends LogicalTestCase
@@ -34,6 +34,13 @@ class DepartmentTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setCode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setRegion()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getCode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getRegion()
+     *
      * @return void
      */
     public function testDepartment()
@@ -112,6 +119,10 @@ class DepartmentTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getCities()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::addCity()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::removeCity()
+     *
      * @return void
      */
     public function testDepartmentCities()
@@ -130,5 +141,53 @@ class DepartmentTest extends LogicalTestCase
         $department->removeCity($city);
 
         $this->assertCount(0, $department->getCities());
+    }
+
+    /**
+     * @return array
+     */
+    public function containsLocationsProvider()
+    {
+        return [
+            ['department-33', 'region-72', false],
+            ['department-33', 'region-74', false],
+            ['department-33', 'department-33', true],
+            ['department-33', 'department-87', false],
+            ['department-33', 'city-1', true],
+            ['department-33', 'city-2', false],
+        ];
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::containsLocation()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::isLocatedIn()
+     *
+     * @dataProvider containsLocationsProvider
+     *
+     * @param string  $departmentName
+     * @param string  $locationName
+     * @param boolean $expected
+     *
+     * @return void
+     */
+    public function testContainsLocation($departmentName, $locationName, $expected)
+    {
+        $department = $this->getReference($departmentName);
+        $location = $this->getReference($locationName);
+
+        $this->assertEquals($expected, $department->containsLocation($location));
+        $this->assertEquals($expected, $location->isLocatedIn($department));
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::isLocatedIn()
+     *
+     * @return void
+     */
+    public function testContainsLocationWithNull()
+    {
+        $location = $this->getReference('department-33');
+
+        $this->assertFalse($location->isLocatedIn(null));
     }
 }
