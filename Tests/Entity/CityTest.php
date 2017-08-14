@@ -34,6 +34,17 @@ class CityTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setZipcode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setLatitude()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setLongitude()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setDepartment()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getZipcode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getLatitude()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getLongitude()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getDepartment()
+     *
      * @return void
      */
     public function testCity()
@@ -120,6 +131,8 @@ class CityTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getRegion()
+     *
      * @return void
      */
     public function testGetRegion()
@@ -142,6 +155,8 @@ class CityTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getZipcodeString()
+     *
      * @return void
      */
     public function testGetZipcodeString()
@@ -172,6 +187,8 @@ class CityTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::containsLocation()
+     *
      * @dataProvider containsLocationsProvider
      *
      * @param string  $cityName
@@ -190,6 +207,8 @@ class CityTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::isLocatedIn()
+     *
      * @return void
      */
     public function testContainsLocationWithNull()

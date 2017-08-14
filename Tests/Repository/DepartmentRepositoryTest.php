@@ -7,7 +7,7 @@ use Chaplean\Bundle\LocationBundle\Repository\DepartmentRepository;
 use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
 
 /**
- * RegionRepositoryTest.php.
+ * DepartmentRepositoryTest.php.
  *
  * @author    Valentin - Chaplean <valentin@chaplean.coop>
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
@@ -31,6 +31,8 @@ class DepartmentRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\DepartmentRepository::findAll()
+     *
      * @return void
      */
     public function testFindAllDepartment()
@@ -41,6 +43,8 @@ class DepartmentRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\DepartmentRepository::findOneBy()
+     *
      * @return void
      */
     public function testFindOneDepartmentById()
@@ -53,6 +57,8 @@ class DepartmentRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\DepartmentRepository::findOneBy()
+     *
      * @return void
      */
     public function testFindOneDepartmentByName()
@@ -65,6 +71,8 @@ class DepartmentRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\DepartmentRepository::findOneBy()
+     *
      * @return void
      */
     public function testFindOneDepartmentByRegion()

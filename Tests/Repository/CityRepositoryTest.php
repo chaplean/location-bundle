@@ -7,7 +7,7 @@ use Chaplean\Bundle\LocationBundle\Repository\CityRepository;
 use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
 
 /**
- * RegionRepositoryTest.php.
+ * CityRepositoryTest.php.
  *
  * @author    Valentin - Chaplean <valentin@chaplean.coop>
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
@@ -31,6 +31,8 @@ class CityRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findAll()
+     *
      * @return void
      */
     public function testFindAllCity()
@@ -41,6 +43,8 @@ class CityRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findOneBy()
+     *
      * @return void
      */
     public function testFindOneCityByName()
@@ -53,6 +57,8 @@ class CityRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findOneBy()
+     *
      * @return void
      */
     public function testFindOneCityByZipcode()
@@ -65,6 +71,8 @@ class CityRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findOneByNameAndCoordinates()
+     *
      * @return void
      */
     public function testFindOneCityByNameAndCoordinates()
@@ -78,6 +86,8 @@ class CityRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findOneByNameAndCoordinates()
+     *
      * @return void
      */
     public function testFindOneCityByNameAndCoordinatesUnknownName()
@@ -88,6 +98,8 @@ class CityRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findOneByNameAndCoordinates()
+     *
      * @return void
      */
     public function testFindOneCityByNameAndCoordinatesWithSameName()
@@ -101,6 +113,8 @@ class CityRepositoryTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findOneByNameAndCoordinates()
+     *
      * @return void
      */
     public function testFindOneCityByNameAndCoordinatesWithSameCoordinates()

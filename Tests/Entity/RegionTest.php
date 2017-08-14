@@ -9,7 +9,7 @@ use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 
 /**
- * CityTest.php.
+ * RegionCity.php.
  *
  * @author    Valentin - Chaplean <valentin@chaplean.coop>
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
@@ -29,10 +29,16 @@ class RegionTest extends LogicalTestCase
     {
         parent::setUp();
 
-        $this->serializer = $this->getContainer()->get('jms_serializer');
+        $this->serializer = $this->getContainer()
+            ->get('jms_serializer');
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setCode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getCode()
+     *
      * @return void
      */
     public function testRegion()
@@ -58,12 +64,15 @@ class RegionTest extends LogicalTestCase
 
         $regionSerialized = $this->serializer->serialize($region, 'json');
 
-        $this->assertEquals(array(
-            'name' => 'SuperRegion',
-            'code' => '05',
-            'departments' => array(),
-            'dtype' => 'region',
-        ), json_decode($regionSerialized, true));
+        $this->assertEquals(
+            array(
+                'name'        => 'SuperRegion',
+                'code'        => '05',
+                'departments' => array(),
+                'dtype'       => 'region',
+            ),
+            json_decode($regionSerialized, true)
+        );
     }
 
     /**
@@ -76,11 +85,19 @@ class RegionTest extends LogicalTestCase
         $region->setName('SuperRegion');
         $region->setCode('05');
 
-        $regionSerialized = $this->serializer->serialize($region, 'json', SerializationContext::create()->setGroups(array('location_name')));
+        $regionSerialized = $this->serializer->serialize(
+            $region,
+            'json',
+            SerializationContext::create()
+                ->setGroups(array('location_name'))
+        );
 
-        $this->assertEquals(array(
-            'name' => 'SuperRegion'
-        ), json_decode($regionSerialized, true));
+        $this->assertEquals(
+            array(
+                'name' => 'SuperRegion'
+            ),
+            json_decode($regionSerialized, true)
+        );
     }
 
     /**
@@ -93,15 +110,27 @@ class RegionTest extends LogicalTestCase
         $region->setName('SuperRegion');
         $region->setCode('05');
 
-        $regionSerialized = $this->serializer->serialize($region, 'json', SerializationContext::create()->setGroups(array('location_name', 'region_code')));
+        $regionSerialized = $this->serializer->serialize(
+            $region,
+            'json',
+            SerializationContext::create()
+                ->setGroups(array('location_name', 'region_code'))
+        );
 
-        $this->assertEquals(array(
-            'name' => 'SuperRegion',
-            'code' => '05',
-        ), json_decode($regionSerialized, true));
+        $this->assertEquals(
+            array(
+                'name' => 'SuperRegion',
+                'code' => '05',
+            ),
+            json_decode($regionSerialized, true)
+        );
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getDepartments()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::addDepartment()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::removeDepartment()
+     *
      * @return void
      */
     public function testRegionDepartments()
@@ -137,6 +166,9 @@ class RegionTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::containsLocation()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::isLocatedIn()
+     *
      * @dataProvider containsLocationsProvider
      *
      * @param string  $regionName
@@ -155,6 +187,8 @@ class RegionTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::isLocatedIn()
+     *
      * @return void
      */
     public function testContainsLocationWithNull()

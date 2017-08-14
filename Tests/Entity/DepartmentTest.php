@@ -10,7 +10,7 @@ use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 
 /**
- * CityTest.php.
+ * DepartmentTest.php.
  *
  * @author    Valentin - Chaplean <valentin@chaplean.coop>
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
@@ -34,6 +34,13 @@ class DepartmentTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setCode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setRegion()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getCode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getRegion()
+     *
      * @return void
      */
     public function testDepartment()
@@ -112,6 +119,10 @@ class DepartmentTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getCities()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::addCity()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::removeCity()
+     *
      * @return void
      */
     public function testDepartmentCities()
@@ -148,6 +159,9 @@ class DepartmentTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::containsLocation()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::isLocatedIn()
+     *
      * @dataProvider containsLocationsProvider
      *
      * @param string  $departmentName
@@ -166,6 +180,8 @@ class DepartmentTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::isLocatedIn()
+     *
      * @return void
      */
     public function testContainsLocationWithNull()

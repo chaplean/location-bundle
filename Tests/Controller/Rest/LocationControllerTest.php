@@ -14,6 +14,8 @@ use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
 class LocationControllerTest extends LogicalTestCase
 {
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Controller\Rest\LocationController::getLocationAction()
+     *
      * @return void
      */
     public function testSearchLocation()
@@ -31,6 +33,8 @@ class LocationControllerTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Controller\Rest\LocationController::getLocationAction()
+     *
      * @return void
      */
     public function testSearchLocationMoreResult()
@@ -47,6 +51,8 @@ class LocationControllerTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Controller\Rest\LocationController::getLocationAction()
+     *
      * @return void
      */
     public function testSearchLocationZipcode()

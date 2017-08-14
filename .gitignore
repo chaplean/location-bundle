@@ -1,3 +1,10 @@
+# Cache and logs (Symfony3 directory structure)
+/var/*
+!var/.gitkeep
+
+# Parameters
+/app/config/parameters.yml
+
 # Managed by Composer
 /bin/*
 !bin/console
