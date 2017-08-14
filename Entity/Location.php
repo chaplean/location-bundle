@@ -11,9 +11,9 @@ use JMS\Serializer\Annotation as JMS;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="dtype", type="string")
  * @ORM\DiscriminatorMap({
- *     "city"="Chaplean\Bundle\LocationBundle\Entity\City",
- *     "department"="Chaplean\Bundle\LocationBundle\Entity\Department",
- *     "region"="Chaplean\Bundle\LocationBundle\Entity\Region"
+ *     "city":"Chaplean\Bundle\LocationBundle\Entity\City",
+ *     "department":"Chaplean\Bundle\LocationBundle\Entity\Department",
+ *     "region":"Chaplean\Bundle\LocationBundle\Entity\Region"
  * })
  *
  * @JMS\ExclusionPolicy("all")
