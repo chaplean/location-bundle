@@ -34,10 +34,10 @@ class RegionTest extends LogicalTestCase
     }
 
     /**
-     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setName()
-     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setCode()
-     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getName()
-     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getCode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::setName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::setCode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::getName()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::getCode()
      *
      * @return void
      */
@@ -127,9 +127,9 @@ class RegionTest extends LogicalTestCase
     }
 
     /**
-     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getDepartments()
-     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::addDepartment()
-     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::removeDepartment()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::getDepartments()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::addDepartment()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::removeDepartment()
      *
      * @return void
      */
@@ -166,8 +166,8 @@ class RegionTest extends LogicalTestCase
     }
 
     /**
-     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::containsLocation()
-     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::isLocatedIn()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::containsLocation()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::isLocatedIn()
      *
      * @dataProvider containsLocationsProvider
      *
@@ -187,7 +187,7 @@ class RegionTest extends LogicalTestCase
     }
 
     /**
-     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::isLocatedIn()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::isLocatedIn()
      *
      * @return void
      */
