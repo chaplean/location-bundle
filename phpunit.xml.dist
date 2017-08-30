@@ -27,7 +27,7 @@
             <exclude>
                 <directory>app</directory>
                 <directory>bin</directory>
-                <directory>DataFixtures</directory>
+                <directory>DataFixtures/Liip</directory>
                 <directory>DependencyInjection</directory>
                 <directory>Resources</directory>
                 <directory>Tests</directory>

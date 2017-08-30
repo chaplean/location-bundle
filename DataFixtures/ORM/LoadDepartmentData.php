@@ -26,16 +26,19 @@ class LoadDepartmentData extends AbstractFixture implements DependentFixtureInte
      */
     public function load(ObjectManager $manager)
     {
-        $fileDepartment = new CsvReader(__DIR__ . '/../../Resources/doc/departments_2014.csv', "\t", 0);
-        $fileDepartmentCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_departments_2016.csv', "\t", 0);
+        $fileDepartment = new CsvReader(__DIR__ . '/../../Resources/doc/departments_2014.csv', "\t", true);
+        $fileDepartmentCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_departments_2016.csv', "\t", true);
 
         $departments = array_merge($fileDepartment->get(), $fileDepartmentCom->get());
 
         foreach ($departments as $departmentTxt) {
+            $region = LoadRegionData::getNewCodeRegion($departmentTxt[0]);
+
             $department = new Department();
             $department->setCode($departmentTxt[1]);
             $department->setName(ucwords($departmentTxt[5]));
-            $department->setRegion($this->getReference(LoadRegionData::getNewCodeRegion($departmentTxt[0])));
+            $department->setRegion($this->getReference($region));
+
             $manager->persist($department);
             $this->setReference('department-' . $departmentTxt[1], $department);
         }
