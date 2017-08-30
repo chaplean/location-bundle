@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaplean\Bundle\LocationBundle\Tests\DataFixtures\ORM;
+namespace Tests\Chaplean\Bundle\LocationBundle\DataFixtures\ORM;
 
 use Chaplean\Bundle\LocationBundle\DataFixtures\ORM\LoadCityData;
 use Doctrine\Common\Persistence\ObjectManager;
