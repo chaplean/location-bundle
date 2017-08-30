@@ -32,12 +32,15 @@ class LoadDepartmentDataTest extends TestCase
             ->once();
 
         /**
-         * @var $loadDepartmentData \Mockery\MockInterface|LoadDepartmentData
+         * @var $loadDepartmentData \PHPUnit_Framework_MockObject_MockObject|LoadDepartmentData
          */
-        $loadDepartmentData = \Mockery::mock(LoadDepartmentData::class)
-            ->makePartial();
-        $loadDepartmentData->shouldReceive('getReference');
-        $loadDepartmentData->shouldReceive('setReference');
+        $loadDepartmentData = $this->getMockBuilder(LoadDepartmentData::class)
+            ->setMethods(['getReference', 'setReference'])
+            ->getMock();
+        $loadDepartmentData->expects($this->any())
+            ->method('getReference');
+        $loadDepartmentData->expects($this->any())
+            ->method('setReference');
 
         $loadDepartmentData->load($objectManager);
 

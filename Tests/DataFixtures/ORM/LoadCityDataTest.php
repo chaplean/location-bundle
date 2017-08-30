@@ -32,12 +32,15 @@ class LoadCityDataTest extends TestCase
             ->once();
 
         /**
-         * @var $loadCityData \Mockery\MockInterface|LoadCityData
+         * @var $loadCityData \PHPUnit_Framework_MockObject_MockObject|LoadCityData
          */
-        $loadCityData = \Mockery::mock(LoadCityData::class)
-            ->makePartial();
-        $loadCityData->shouldReceive('getReference');
-        $loadCityData->shouldReceive('setReference');
+        $loadCityData = $this->getMockBuilder(LoadCityData::class)
+            ->setMethods(['getReference', 'setReference'])
+            ->getMock();
+        $loadCityData->expects($this->any())
+            ->method('getReference');
+        $loadCityData->expects($this->any())
+            ->method('setReference');
 
         $loadCityData->load($objectManager);
 

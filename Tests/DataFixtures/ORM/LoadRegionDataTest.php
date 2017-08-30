@@ -32,12 +32,15 @@ class LoadRegionDataTest extends TestCase
             ->once();
 
         /**
-         * @var $loadRegionData \Mockery\MockInterface|LoadRegionData
+         * @var $loadRegionData \PHPUnit_Framework_MockObject_MockObject|LoadRegionData
          */
-        $loadRegionData = \Mockery::mock(LoadRegionData::class)
-            ->makePartial();
-        $loadRegionData->shouldReceive('getReference');
-        $loadRegionData->shouldReceive('setReference');
+        $loadRegionData = $this->getMockBuilder(LoadRegionData::class)
+            ->setMethods(['getReference', 'setReference'])
+            ->getMock();
+        $loadRegionData->expects($this->any())
+            ->method('getReference');
+        $loadRegionData->expects($this->any())
+            ->method('setReference');
 
         $loadRegionData->load($objectManager);
 
