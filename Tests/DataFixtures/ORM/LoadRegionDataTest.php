@@ -17,6 +17,8 @@ use PHPUnit\Framework\TestCase;
 class LoadRegionDataTest extends TestCase
 {
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\DataFixtures\ORM\LoadRegionData::load()
+     *
      * @doesNotPerformAssertions
      *
      * @return void

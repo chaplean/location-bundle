@@ -11,8 +11,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Chaplean\\Bundle\\LocationBundle\\": "",
-            "Tests\\": "Tests"
+            "Chaplean\\Bundle\\LocationBundle\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Chaplean\\Bundle\\LocationBundle\\": "Tests/"
         }
     },
     "repositories": [
@@ -47,6 +51,8 @@
         "symfony/var-dumper": "^2.8 || ^3.0 || ^4.0"
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "discard-changes": true,
+        "sort-packages": true
     }
 }

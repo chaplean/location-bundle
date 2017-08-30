@@ -17,6 +17,8 @@ use PHPUnit\Framework\TestCase;
 class LoadDepartmentDataTest extends TestCase
 {
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\DataFixtures\ORM\LoadDepartmentData::load()
+     *
      * @doesNotPerformAssertions
      *
      * @return void
