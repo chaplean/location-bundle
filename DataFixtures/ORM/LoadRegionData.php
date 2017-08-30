@@ -25,8 +25,8 @@ class LoadRegionData extends AbstractFixture
      */
     public function load(ObjectManager $manager)
     {
-        $fileRegion = new CsvReader(__DIR__ . '/../../Resources/doc/regions_2016.csv', ';', 0);
-        $fileRegionCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_regions_2016.csv', ';', 0);
+        $fileRegion = new CsvReader(__DIR__ . '/../../Resources/doc/regions_2016.csv', ';', false);
+        $fileRegionCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_regions_2016.csv', ';', false);
 
         $regions = array_merge($fileRegion->get(), $fileRegionCom->get());
 

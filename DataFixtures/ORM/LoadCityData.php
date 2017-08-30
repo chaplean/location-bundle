@@ -26,8 +26,8 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $fileCity = new CsvReader(__DIR__ . '/../../Resources/doc/cities_2014.csv', ',', 0);
-        $fileCityCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_cities_2016.csv', ',', 0);
+        $fileCity = new CsvReader(__DIR__ . '/../../Resources/doc/cities_2014.csv', ',', true);
+        $fileCityCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_cities_2016.csv', ',', true);
 
         $cities = array_merge($fileCity->get(), $fileCityCom->get());
 
