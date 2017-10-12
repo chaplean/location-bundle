@@ -33,7 +33,7 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
         $cityRepository = $manager->getRepository('ChapleanLocationBundle:City');
 
         foreach ($cities as $cityTxt) {
-            $name = ucwords(strtolower($cityTxt[1]));
+            $name = CityUtility::removeNumber($cityTxt[1]);
             $zipcode = $cityTxt[2];
             $department = CityUtility::getDepartmentCodeFromZipcode($zipcode);
             $coords = CityUtility::extractLatitudeLongitude($cityTxt[5]);

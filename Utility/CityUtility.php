@@ -57,4 +57,24 @@ class CityUtility
             'latitude'  => (float) $coords[1]
         ];
     }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    public static function reformatName($name)
+    {
+        return preg_replace('/^SAINT(E?\s{1})/', 'ST$1', str_replace(['-', '\''], ' ', strtoupper(StringUtility::removeAccent($name))));
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    public static function removeNumber($name)
+    {
+        return trim(preg_replace('/\d/', '', $name));
+    }
 }

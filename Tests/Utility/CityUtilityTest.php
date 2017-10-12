@@ -16,11 +16,29 @@ use PHPUnit\Framework\TestCase;
 class CityUtilityTest extends TestCase
 {
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::reformatName()
+     *
+     * @return void
+     */
+    public function testReformatName()
+    {
+        $this->assertEquals('LE SUBDRAY', CityUtility::reformatName('Le Subdray'));
+        $this->assertEquals('ST ANDRE', CityUtility::reformatName('Saint-André'));
+        $this->assertEquals('STE EUPHEMIE', CityUtility::reformatName('Sainte-Euphémie'));
+        $this->assertEquals('TRINITE', CityUtility::reformatName('Trinité'));
+        $this->assertEquals('MORNE A L EAU', CityUtility::reformatName('Morne-à-l\'Eau'));
+        $this->assertEquals('SANTA LUCIA DI MORIANI', CityUtility::reformatName('Santa-Lucia-di-Moriani'));
+        $this->assertEquals('COURSAINT', CityUtility::reformatName('Coursaint'));
+        $this->assertEquals('SAINTENY', CityUtility::reformatName('Sainteny'));
+        $this->assertEquals('', CityUtility::reformatName(null));
+    }
+
+    /**
      * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::getDepartmentCodeFromZipcode()
      *
      * @return void
      */
-    public function testgetDepartmentCodeFromZipcode()
+    public function testGetDepartmentCodeFromZipcode()
     {
         $this->assertEquals('18', CityUtility::getDepartmentCodeFromZipcode('18562'));
         $this->assertEquals('999', CityUtility::getDepartmentCodeFromZipcode('99999'));
@@ -29,6 +47,7 @@ class CityUtilityTest extends TestCase
         $this->assertEquals('', CityUtility::getDepartmentCodeFromZipcode(''));
         $this->assertEquals('2A', CityUtility::getDepartmentCodeFromZipcode('20'));
         $this->assertEquals('2B', CityUtility::getDepartmentCodeFromZipcode('21'));
+        $this->assertEquals('', CityUtility::getDepartmentCodeFromZipcode(null));
     }
 
     /**
@@ -47,5 +66,25 @@ class CityUtilityTest extends TestCase
         $coords = CityUtility::extractLatitudeLongitude('a,a');
         $this->assertSame(0, $coords['longitude']);
         $this->assertSame(0, $coords['latitude']);
+
+        $coords = CityUtility::extractLatitudeLongitude(null);
+        $this->assertSame(0, $coords['longitude']);
+        $this->assertSame(0, $coords['latitude']);
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::removeNumber()
+     *
+     * @return void
+     */
+    public function testremoveNumber()
+    {
+        $this->assertEquals('PARIS', CityUtility::removeNumber('PARIS 01'));
+        $this->assertEquals('PARIS', CityUtility::removeNumber('PARIS 02'));
+        $this->assertEquals('PARIS', CityUtility::removeNumber('PARIS 2121'));
+        $this->assertEquals('Paris', CityUtility::removeNumber('01 Paris'));
+        $this->assertEquals('Foos', CityUtility::removeNumber('Foos'));
+        $this->assertEquals('PoSq', CityUtility::removeNumber('Po01Sq'));
+        $this->assertEquals('', CityUtility::removeNumber(null));
     }
 }
