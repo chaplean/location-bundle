@@ -3,6 +3,7 @@
 namespace Chaplean\Bundle\LocationBundle\DataFixtures\ORM;
 
 use Chaplean\Bundle\CsvBundle\Utility\CsvReader;
+use Chaplean\Bundle\LocationBundle\Utility\CityUtility;
 use Chaplean\Bundle\LocationBundle\Entity\City;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -26,38 +27,28 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $fileCity = new CsvReader(__DIR__ . '/../../Resources/doc/cities_2014.csv', ',', true);
-        $fileCityCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_cities_2016.csv', ',', true);
+        $fileCity = new CsvReader(__DIR__ . '/../../Resources/doc/cities_2017.csv', ';', true);
+        $cities = $fileCity->get();
 
-        $cities = array_merge($fileCity->get(), $fileCityCom->get());
+        $cityRepository = $manager->getRepository('ChapleanLocationBundle:City');
 
         foreach ($cities as $cityTxt) {
-            $name = str_replace('"', '', ucwords($cityTxt[5]));
-            $zipcode = str_replace('"', '', $cityTxt[8]);
-            $latitude = (float) str_replace('"', '', $cityTxt[20]);
-            $longitude = (float) str_replace('"', '', $cityTxt[19]);
-            $department = str_replace('"', '', $cityTxt[1]);
-            $zipcodes = explode('-', $zipcode);
+            $name = ucwords(strtolower($cityTxt[1]));
+            $zipcode = $cityTxt[2];
+            $department = CityUtility::getDepartmentCodeFromZipcode($zipcode);
+            $coords = CityUtility::extractLatitudeLongitude($cityTxt[5]);
 
-            if (!empty($zipcodes)) {
-                foreach ($zipcodes as $zipcode) {
-                    $city = new City();
-                    $city->setName($name);
-                    $city->setZipcode($zipcode);
-                    $city->setLatitude($latitude);
-                    $city->setLongitude($longitude);
-                    $city->setDepartment($this->getReference('department-' . $department));
-                    $manager->persist($city);
-                }
-            } else {
-                $city = new City();
-                $city->setName($name);
-                $city->setZipcode($zipcode);
-                $city->setLatitude($latitude);
-                $city->setLongitude($longitude);
-                $city->setDepartment($this->getReference('department-' . $department));
-                $manager->persist($city);
+            if ($cityRepository->findOneBy(['name' => $name, 'zipcode' => $zipcode]) !== null) {
+                continue;
             }
+
+            $city = new City();
+            $city->setName($name);
+            $city->setZipcode($zipcode);
+            $city->setLatitude($coords['latitude']);
+            $city->setLongitude($coords['longitude']);
+            $city->setDepartment($this->getReference('department-' . $department));
+            $manager->persist($city);
         }
 
         $manager->flush();
@@ -71,8 +62,8 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
      */
     public function getDependencies()
     {
-        return array(
-            'Chaplean\Bundle\LocationBundle\DataFixtures\ORM\LoadDepartmentData',
-        );
+        return [
+            LoadDepartmentData::class
+        ];
     }
 }

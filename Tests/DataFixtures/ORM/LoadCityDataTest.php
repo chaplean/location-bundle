@@ -3,8 +3,11 @@
 namespace Tests\Chaplean\Bundle\LocationBundle\DataFixtures\ORM;
 
 use Chaplean\Bundle\LocationBundle\DataFixtures\ORM\LoadCityData;
+use Chaplean\Bundle\LocationBundle\Entity\City;
+use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Doctrine\Common\Persistence\ObjectManager;
-use PHPUnit\Framework\TestCase;
+use Doctrine\ORM\EntityRepository;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 
 /**
  * Class LoadCityDataTest.
@@ -14,36 +17,31 @@ use PHPUnit\Framework\TestCase;
  * @copyright 2014 - 2017 Chaplean (http://www.chaplean.coop)
  * @since     6.0.1
  */
-class LoadCityDataTest extends TestCase
+class LoadCityDataTest extends MockeryTestCase
 {
     /**
      * @covers \Chaplean\Bundle\LocationBundle\DataFixtures\ORM\LoadCityData::load()
      *
-     * @doesNotPerformAssertions
-     *
      * @return void
      */
-    public function testLoad36922Cities()
+    public function testLoad39200Cities()
     {
         $objectManager = \Mockery::mock(ObjectManager::class);
-        $objectManager->shouldReceive('persist')
-            ->times(36922);
-        $objectManager->shouldReceive('flush')
-            ->once();
+        $entityRepository = \Mockery::mock(EntityRepository::class);
 
-        /**
-         * @var $loadCityData \PHPUnit_Framework_MockObject_MockObject|LoadCityData
-         */
-        $loadCityData = $this->getMockBuilder(LoadCityData::class)
-            ->setMethods(['getReference', 'setReference'])
-            ->getMock();
-        $loadCityData->expects($this->any())
-            ->method('getReference');
-        $loadCityData->expects($this->any())
-            ->method('setReference');
+        $entityRepository->shouldReceive('findOneBy')->times(39200)->andReturnNull();
+        $entityRepository->shouldReceive('findOneBy')->once()->andReturn(new City());
+
+        $objectManager->shouldReceive('getRepository')->once()->andReturn($entityRepository);
+        $objectManager->shouldReceive('persist')->times(39200);
+        $objectManager->shouldReceive('flush')->once();
+
+
+        /** @var LoadCityData|\Mockery\MockInterface $loadCityData */
+        $loadCityData = \Mockery::mock(LoadCityData::class)->makePartial();
+        $loadCityData->shouldReceive('getReference')->andReturn(new Department());
+        $loadCityData->shouldReceive('setReference');
 
         $loadCityData->load($objectManager);
-
-        \Mockery::close();
     }
 }
