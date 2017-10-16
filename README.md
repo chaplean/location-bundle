@@ -17,5 +17,12 @@ composer require chaplean/location-bundle
 
 Add
 ```
-            new Chaplean\Bundle\LocationBundle\ChapleanLocationBundle(),
+new Chaplean\Bundle\LocationBundle\ChapleanLocationBundle(),
 ```
+
+
+## 3. Resources
+
+* Regions: ?
+* Départements: https://www.insee.fr/fr/information/2114819 (cf "Liste des départements") 
+* Villes: https://www.data.gouv.fr/fr/datasets/base-officielle-des-codes-postaux/

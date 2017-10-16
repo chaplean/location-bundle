@@ -1,1 +1,4 @@
-#services:
+services:
+    chaplean_location.location_upgrade_cities.utility:
+        class: Chaplean\Bundle\LocationBundle\Utility\LocationUpgradeCitiesUtility
+        arguments: ['@doctrine']
