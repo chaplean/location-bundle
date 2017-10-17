@@ -30,6 +30,9 @@ class CityUtilityTest extends TestCase
         $this->assertEquals('SANTA LUCIA DI MORIANI', CityUtility::reformatName('Santa-Lucia-di-Moriani'));
         $this->assertEquals('COURSAINT', CityUtility::reformatName('Coursaint'));
         $this->assertEquals('SAINTENY', CityUtility::reformatName('Sainteny'));
+        $this->assertEquals('LA CHAPELLE ST URSIN', CityUtility::reformatName('La Chapelle-Saint-Ursin'));
+        $this->assertEquals('LE PAVILLON STE JULIE', CityUtility::reformatName('Le Pavillon-Sainte-Julie'));
+        $this->assertEquals('NIEUL LES SAINTES', CityUtility::reformatName('Nieul-lès-Saintes'));
         $this->assertEquals('', CityUtility::reformatName(null));
     }
 

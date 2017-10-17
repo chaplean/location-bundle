@@ -65,7 +65,7 @@ class CityUtility
      */
     public static function reformatName($name)
     {
-        return preg_replace('/^SAINT(E?\s{1})/', 'ST$1', str_replace(['-', '\''], ' ', strtoupper(StringUtility::removeAccent($name))));
+        return preg_replace('/(^S|\s{1}S)AINT(E?\s{1})/', '$1T$2', str_replace(['-', '\''], ' ', strtoupper(StringUtility::removeAccent($name))));
     }
 
     /**
