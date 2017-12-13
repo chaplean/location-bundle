@@ -2,6 +2,10 @@
 
 namespace Chaplean\Bundle\LocationBundle\Utility;
 
+use Chaplean\Bundle\LocationBundle\Entity\City;
+use Doctrine\ORM\EntityManager;
+use Symfony\Bridge\Doctrine\RegistryInterface;
+
 /**
  * Class CityUtility.
  *
@@ -12,6 +16,52 @@ namespace Chaplean\Bundle\LocationBundle\Utility;
  */
 class CityUtility
 {
+    /**
+     * @var EntityManager
+     */
+    private $em;
+
+    /**
+     * CityUtility constructor.
+     *
+     * @param RegistryInterface $registry
+     */
+    public function __construct(RegistryInterface $registry)
+    {
+        $this->em = $registry->getManager();
+    }
+
+    /**
+     * Return a city according to the given name and coordinates.
+     *
+     * @param string $name      City's name
+     * @param float  $latitude  City's latitude
+     * @param float  $longitude City's longitude
+     *
+     * @return City|null
+     */
+    public function findNearestCityByNameAndCoordinates($name, $latitude, $longitude)
+    {
+        $distance = null;
+        $city = null;
+        $cities = $this->em->getRepository(City::class)->findBy(['name' => $name], [], 20);
+
+        /** @var City $result */
+        foreach ($cities as $result) {
+            $cityLatitude = $result->getLatitude();
+            $cityLongitude = $result->getLongitude();
+
+            $cityDistance = 3959 * acos(cos(deg2rad($latitude)) * cos(deg2rad($cityLatitude)) * cos(deg2rad($cityLongitude) - deg2rad($longitude)) + sin(deg2rad($latitude)) * sin(deg2rad($cityLatitude)));
+
+            if ($distance === null || $cityDistance < $distance) {
+                $city = $result;
+                $distance = $cityDistance;
+            }
+        }
+
+        return $city;
+    }
+    
     /**
      * Extract department code from zipcode
      *

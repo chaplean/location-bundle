@@ -2,8 +2,9 @@
 
 namespace Tests\Chaplean\Bundle\LocationBundle\Utility;
 
+use Chaplean\Bundle\LocationBundle\Entity\City;
 use Chaplean\Bundle\LocationBundle\Utility\CityUtility;
-use PHPUnit\Framework\TestCase;
+use Chaplean\Bundle\UnitBundle\Test\FunctionalTestCase;
 
 /**
  * Class CityUtility.
@@ -13,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  * @copyright 2014 - 2017 Chaplean (http://www.chaplean.coop)
  * @since     7.0.0
  */
-class CityUtilityTest extends TestCase
+class CityUtilityTest extends FunctionalTestCase
 {
     /**
      * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::reformatName()
@@ -89,5 +90,66 @@ class CityUtilityTest extends TestCase
         $this->assertEquals('Foos', CityUtility::removeNumber('Foos'));
         $this->assertEquals('PoSq', CityUtility::removeNumber('Po01Sq'));
         $this->assertEquals('', CityUtility::removeNumber(null));
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::findNearestCityByNameAndCoordinates()
+     *
+     * @return void
+     */
+    public function testFindOneCityByNameAndCoordinates()
+    {
+        $cityUtility = $this->getContainer()->get('chaplean_location.city_utility');
+        $city = $cityUtility->findNearestCityByNameAndCoordinates('Bourges', 47.0833, 2.4);
+
+        $this->assertInstanceOf(City::class, $city);
+        $this->assertEquals('Bourges', $city->getName());
+        $this->assertEquals(47.0833, $city->getLatitude());
+        $this->assertEquals(2.4, $city->getLongitude());
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::findNearestCityByNameAndCoordinates
+     *
+     * @return void
+     */
+    public function testFindOneCityByNameAndCoordinatesUnknownName()
+    {
+        $cityUtility = $this->getContainer()->get('chaplean_location.city_utility');
+        $city = $cityUtility->findNearestCityByNameAndCoordinates('Test', 47.0833, 2.4);
+
+        $this->assertNull($city);
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::findNearestCityByNameAndCoordinates()
+     *
+     * @return void
+     */
+    public function testFindOneCityByNameAndCoordinatesWithSameName()
+    {
+        $cityUtility = $this->getContainer()->get('chaplean_location.city_utility');
+        $city = $cityUtility->findNearestCityByNameAndCoordinates('Bordeaux', 44.83, -0.57);
+
+        $this->assertInstanceOf(City::class, $city);
+        $this->assertEquals('Bordeaux', $city->getName());
+        $this->assertEquals(44.8333, $city->getLatitude());
+        $this->assertEquals(-0.566667, $city->getLongitude());
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::findNearestCityByNameAndCoordinates()
+     *
+     * @return void
+     */
+    public function testFindOneCityByNameAndCoordinatesWithSameCoordinates()
+    {
+        $cityUtility = $this->getContainer()->get('chaplean_location.city_utility');
+        $city = $cityUtility->findNearestCityByNameAndCoordinates('Fausse-Ville', 44.83, -0.57);
+
+        $this->assertInstanceOf(City::class, $city);
+        $this->assertEquals('Fausse-Ville', $city->getName());
+        $this->assertEquals(44.8333, $city->getLatitude());
+        $this->assertEquals(-0.566667, $city->getLongitude());
     }
 }

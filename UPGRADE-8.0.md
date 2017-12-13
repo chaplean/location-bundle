@@ -83,5 +83,6 @@ class VersionXXXXXXXXXXXXXX extends AbstractMigration implements ContainerAwareI
     }
 }
 ```
+* Move and rename `findOneByNameAndCoordinates` into `chaplean_location.city_utility` with the name `findNearestCityByNameAndCoordinates`
 
 That's all ! ;)
