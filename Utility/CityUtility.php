@@ -22,12 +22,13 @@ class CityUtility
     public static function getDepartmentCodeFromZipcode($zipcode)
     {
         $code = substr($zipcode, 0, 2);
+        $codeInt = (int) $code;
 
-        if (((int) $code) > 96) {
+        if ($codeInt > 96) {
             $code = substr($zipcode, 0, 3);
-        } elseif (((int) $code) === 20) {
+        } elseif ($codeInt === 20) {
             $code = str_replace('0', 'A', $code);
-        } elseif (((int) $code) === 21) {
+        } elseif ($codeInt === 21) {
             $code = str_replace('1', 'B', $code);
         }
 
@@ -53,8 +54,8 @@ class CityUtility
         }
 
         return [
-            'longitude' => (float) $coords[0],
-            'latitude'  => (float) $coords[1]
+            'latitude'  => (float) $coords[0],
+            'longitude' => (float) $coords[1]
         ];
     }
 

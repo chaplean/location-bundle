@@ -42,6 +42,8 @@ class LoadRegionData extends AbstractFixture
     }
 
     /**
+     * @codeCoverageIgnore
+     * 
      * @param string $oldCode
      *
      * @return string

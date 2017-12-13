@@ -47,6 +47,7 @@ class LoadDepartmentData extends AbstractFixture implements DependentFixtureInte
     }
 
     /**
+     * @codeCoverageIgnore
      * This method must return an array of fixtures classes
      * on which the implementing class depends on
      *

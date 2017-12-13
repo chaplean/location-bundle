@@ -2,9 +2,9 @@
 
 namespace Chaplean\Bundle\LocationBundle\Command;
 
-use Chaplean\Bundle\CsvBundle\Utility\CsvReader;
 use Chaplean\Bundle\LocationBundle\Entity\City;
 use Chaplean\Bundle\LocationBundle\Utility\CityUtility;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -41,9 +41,8 @@ class LocationUpgradeCitiesCommand extends ContainerAwareCommand
 
         $citiesAdded = 0;
         $cityRepository = $em->getRepository('ChapleanLocationBundle:City');
-        $departmentRepository = $em->getRepository('ChapleanLocationBundle:Department');
 
-        $output->writeln('Find all cities...</info>');
+        $output->writeln('<info>Find all cities...</info>');
         $oldCities = $cityRepository->findAll();
 
         $output->writeln('<info>Rename cities...</info>');
@@ -80,32 +79,18 @@ class LocationUpgradeCitiesCommand extends ContainerAwareCommand
         $inserted = [];
 
         foreach ($newCities as $newCity) {
-            $name = CityUtility::removeNumber($newCity[1]);
-            $zipcode = $newCity[2];
-            $hash = $name . $zipcode;
-
-            if (isset($inserted[$hash]) || $locationUpgradeCitiesUtility->isCityExisting($name, $zipcode)) {
+            try {
+                $city = $locationUpgradeCitiesUtility->createCityFromCsvRow($newCity);
+            } catch (EntityNotFoundException $e) {
                 continue;
             }
 
-            $code = CityUtility::getDepartmentCodeFromZipcode($zipcode);
-            $coords = CityUtility::extractLatitudeLongitude($newCity[5]);
-            $department = $departmentRepository->findOneByCode($code);
-
-            if ($department === null) {
-                $output->writeln(sprintf("\nDepartment not found: %s", $code));
+            $hash = $city->getName() . $city->getZipcodeString();
+            if (isset($inserted[$hash]) || $locationUpgradeCitiesUtility->isCityExisting($city->getName(), $city->getZipcodeString())) {
                 continue;
             }
-
-            $city = new City();
-            $city->setName($name);
-            $city->setZipcode($zipcode);
-            $city->setLatitude($coords['latitude']);
-            $city->setLongitude($coords['longitude']);
-            $city->setDepartment($department);
 
             $em->persist($city);
-
             $inserted[$hash] = true;
 
             $citiesAdded++;

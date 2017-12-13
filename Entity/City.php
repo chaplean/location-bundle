@@ -47,6 +47,13 @@ class City extends Location
     private $longitude;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=5, nullable=true, name="code_insee")
+     */
+    private $codeInsee;
+
+    /**
      * @var Department
      *
      * @ORM\ManyToOne(targetEntity="Chaplean\Bundle\LocationBundle\Entity\Department", inversedBy="cities")
@@ -177,6 +184,26 @@ class City extends Location
      */
     public function getCity()
     {
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCodeInsee()
+    {
+        return $this->codeInsee;
+    }
+
+    /**
+     * @param string $codeInsee
+     *
+     * @return self
+     */
+    public function setCodeInsee($codeInsee)
+    {
+        $this->codeInsee = $codeInsee;
+
         return $this;
     }
 

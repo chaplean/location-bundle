@@ -60,7 +60,7 @@ class CityUtilityTest extends TestCase
      */
     public function testExtractLongitudeLatitude()
     {
-        $this->assertEquals(['longitude' => 40.23, 'latitude' => 5.64], CityUtility::extractLatitudeLongitude('40.23, 5.64'));
+        $this->assertEquals(['longitude' => 6.1760319489, 'latitude' => 48.6902043213], CityUtility::extractLatitudeLongitude('48.6902043213, 6.1760319489'));
 
         $coords = CityUtility::extractLatitudeLongitude('');
         $this->assertSame(0, $coords['longitude']);

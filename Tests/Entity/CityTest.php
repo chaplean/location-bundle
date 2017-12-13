@@ -5,7 +5,7 @@ namespace Tests\Chaplean\Bundle\LocationBundle\Entity;
 use Chaplean\Bundle\LocationBundle\Entity\City;
 use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Chaplean\Bundle\LocationBundle\Entity\Region;
-use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
+use Chaplean\Bundle\UnitBundle\Test\FunctionalTestCase;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 
@@ -16,7 +16,7 @@ use JMS\Serializer\Serializer;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     1.0.0
  */
-class CityTest extends LogicalTestCase
+class CityTest extends FunctionalTestCase
 {
     /**
      * @var Serializer
@@ -39,11 +39,14 @@ class CityTest extends LogicalTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setLatitude()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setLongitude()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setDepartment()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::setCodeInsee()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getName()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getZipcode()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getLatitude()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getLongitude()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getDepartment()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getCodeInsee()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::getCity()
      *
      * @return void
      */
@@ -56,12 +59,16 @@ class CityTest extends LogicalTestCase
         $city->setLatitude(44.9167);
         $city->setLongitude(2.45);
         $city->setDepartment(new Department());
+        $city->setCodeInsee('0000');
 
         $this->assertEquals('SuperCity', $city->getName());
         $this->assertEquals(15000, $city->getZipcode());
         $this->assertEquals(44.9167, $city->getLatitude());
         $this->assertEquals(2.45, $city->getLongitude());
         $this->assertInstanceOf(Department::class, $city->getDepartment());
+        $this->assertEquals('0000', $city->getCodeInsee());
+
+        $this->assertEquals($city, $city->getCity());
     }
 
     /**
@@ -188,6 +195,8 @@ class CityTest extends LogicalTestCase
 
     /**
      * @covers \Chaplean\Bundle\LocationBundle\Entity\City::containsLocation()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::compareIds()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Location::compareIds()
      *
      * @dataProvider containsLocationsProvider
      *
