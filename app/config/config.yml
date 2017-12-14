@@ -27,7 +27,7 @@ doctrine:
                 driver:   '%database_driver%'
                 host:     '%database_host%'
                 port:     '%database_port%'
-                dbname:   '%database_name%'
+                path:     '%database_name%'
                 user:     '%database_user%'
                 password: '%database_password%'
                 charset:  UTF8
@@ -38,9 +38,17 @@ doctrine:
         auto_generate_proxy_classes: '%kernel.debug%'
         auto_mapping: true
 
-fos_rest:
-    routing_loader:
-        default_format: json
-        include_format: false
-    serializer:
-        serialize_null: true
+monolog:
+    handlers:
+        # this "file_log" key could be anything
+        file_log:
+            type: stream
+            # log to var/log/(environment).log
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            # log *all* messages (debug is lowest level)
+            level: debug
+
+        syslog_handler:
+            type: syslog
+            # log error-level messages and higher
+            level: error

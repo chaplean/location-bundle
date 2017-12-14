@@ -2,3 +2,7 @@ services:
     chaplean_location.location_upgrade_cities.utility:
         class: Chaplean\Bundle\LocationBundle\Utility\LocationUpgradeCitiesUtility
         arguments: ['@doctrine']
+
+    chaplean_location.city_utility:
+        class: Chaplean\Bundle\LocationBundle\Utility\CityUtility
+        arguments: ['@doctrine']

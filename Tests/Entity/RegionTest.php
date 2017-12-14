@@ -4,7 +4,7 @@ namespace Tests\Chaplean\Bundle\LocationBundle\Entity;
 
 use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Chaplean\Bundle\LocationBundle\Entity\Region;
-use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
+use Chaplean\Bundle\UnitBundle\Test\FunctionalTestCase;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 
@@ -15,7 +15,7 @@ use JMS\Serializer\Serializer;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     1.0.0
  */
-class RegionTest extends LogicalTestCase
+class RegionTest extends FunctionalTestCase
 {
     /**
      * @var Serializer
@@ -34,10 +34,14 @@ class RegionTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::__construct()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::setName()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::setCode()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::getName()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::getCode()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::getRegion()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::getDepartment()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Region::getCity()
      *
      * @return void
      */
@@ -50,6 +54,10 @@ class RegionTest extends LogicalTestCase
 
         $this->assertEquals('SuperRegion', $region->getName());
         $this->assertEquals('05', $region->getCode());
+
+        $this->assertEquals($region, $region->getRegion());
+        $this->assertNull($region->getDepartment());
+        $this->assertNull($region->getCity());
     }
 
     /**

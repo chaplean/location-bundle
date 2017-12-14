@@ -4,7 +4,7 @@ namespace Tests\Chaplean\Bundle\LocationBundle\Repository;
 
 use Chaplean\Bundle\LocationBundle\Entity\City;
 use Chaplean\Bundle\LocationBundle\Repository\CityRepository;
-use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
+use Chaplean\Bundle\UnitBundle\Test\FunctionalTestCase;
 
 /**
  * CityRepositoryTest.php.
@@ -13,7 +13,7 @@ use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     1.0.0
  */
-class CityRepositoryTest extends LogicalTestCase
+class CityRepositoryTest extends FunctionalTestCase
 {
     /**
      * @var CityRepository
@@ -68,62 +68,5 @@ class CityRepositoryTest extends LogicalTestCase
         $this->assertInstanceOf(City::class, $city);
         $this->assertEquals(5, $city->getDepartment()->getId());
         $this->assertEquals('Limoges', $city->getName());
-    }
-
-    /**
-     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findOneByNameAndCoordinates()
-     *
-     * @return void
-     */
-    public function testFindOneCityByNameAndCoordinates()
-    {
-        $city = $this->cityRepository->findOneByNameAndCoordinates('Bourges', 47.0833, 2.4);
-
-        $this->assertInstanceOf(City::class, $city);
-        $this->assertEquals('Bourges', $city->getName());
-        $this->assertEquals(47.0833, $city->getLatitude());
-        $this->assertEquals(2.4, $city->getLongitude());
-    }
-
-    /**
-     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findOneByNameAndCoordinates()
-     *
-     * @return void
-     */
-    public function testFindOneCityByNameAndCoordinatesUnknownName()
-    {
-        $city = $this->cityRepository->findOneByNameAndCoordinates('Test', 47.0833, 2.4);
-
-        $this->assertNull($city);
-    }
-
-    /**
-     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findOneByNameAndCoordinates()
-     *
-     * @return void
-     */
-    public function testFindOneCityByNameAndCoordinatesWithSameName()
-    {
-        $city = $this->cityRepository->findOneByNameAndCoordinates('Bordeaux', 44.83, -0.57);
-
-        $this->assertInstanceOf(City::class, $city);
-        $this->assertEquals('Bordeaux', $city->getName());
-        $this->assertEquals(44.8333, $city->getLatitude());
-        $this->assertEquals(-0.566667, $city->getLongitude());
-    }
-
-    /**
-     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findOneByNameAndCoordinates()
-     *
-     * @return void
-     */
-    public function testFindOneCityByNameAndCoordinatesWithSameCoordinates()
-    {
-        $city = $this->cityRepository->findOneByNameAndCoordinates('Fausse-Ville', 44.83, -0.57);
-
-        $this->assertInstanceOf(City::class, $city);
-        $this->assertEquals('Fausse-Ville', $city->getName());
-        $this->assertEquals(44.8333, $city->getLatitude());
-        $this->assertEquals(-0.566667, $city->getLongitude());
     }
 }
