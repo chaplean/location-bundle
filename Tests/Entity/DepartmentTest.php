@@ -5,7 +5,7 @@ namespace Tests\Chaplean\Bundle\LocationBundle\Entity;
 use Chaplean\Bundle\LocationBundle\Entity\City;
 use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Chaplean\Bundle\LocationBundle\Entity\Region;
-use Chaplean\Bundle\UnitBundle\Test\LogicalTestCase;
+use Chaplean\Bundle\UnitBundle\Test\FunctionalTestCase;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 
@@ -16,7 +16,7 @@ use JMS\Serializer\Serializer;
  * @copyright 2014 - 2015 Chaplean (http://www.chaplean.coop)
  * @since     1.0.0
  */
-class DepartmentTest extends LogicalTestCase
+class DepartmentTest extends FunctionalTestCase
 {
     /**
      * @var Serializer
@@ -34,12 +34,15 @@ class DepartmentTest extends LogicalTestCase
     }
 
     /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::__construct
      * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setName()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setCode()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::setRegion()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getName()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getCode()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getRegion()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getDepartment()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\Department::getCity()
      *
      * @return void
      */
@@ -54,6 +57,9 @@ class DepartmentTest extends LogicalTestCase
         $this->assertEquals('SuperDepartment', $department->getName());
         $this->assertEquals('05', $department->getCode());
         $this->assertInstanceOf(Region::class, $department->getRegion());
+
+        $this->assertEquals($department, $department->getDepartment());
+        $this->assertNull($department->getCity());
     }
 
     /**

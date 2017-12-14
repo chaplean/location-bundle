@@ -55,6 +55,7 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
     }
 
     /**
+     * @codeCoverageIgnore
      * This method must return an array of fixtures classes
      * on which the implementing class depends on
      *

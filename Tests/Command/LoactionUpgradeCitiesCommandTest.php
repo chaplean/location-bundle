@@ -4,9 +4,9 @@ namespace Tests\Chaplean\Bundle\LocationBundle\Command;
 
 use Chaplean\Bundle\LocationBundle\Command\LocationUpgradeCitiesCommand;
 use Chaplean\Bundle\LocationBundle\Entity\City;
-use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Chaplean\Bundle\LocationBundle\Utility\LocationUpgradeCitiesUtility;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\EntityRepository;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -42,7 +42,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
         $container->shouldReceive('get')->once()->with('chaplean_location.location_upgrade_cities.utility')
             ->andReturn($locationUpgradeCitiesUtility);
 
-        $em->shouldReceive('getRepository')->twice()->andReturn($repository);
+        $em->shouldReceive('getRepository')->once()->andReturn($repository);
         $repository->shouldReceive('findAll')->once()->andReturn([]);
 
         $locationUpgradeCitiesUtility->shouldReceive('getNewCities')->once()->andReturn([
@@ -50,9 +50,15 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
             ['', 'BOURGES', '18000', '', '', '']
         ]);
 
-        $locationUpgradeCitiesUtility->shouldReceive('isCityExisting')->twice()->andReturnFalse();
+        $city1 = new City();
+        $city1->setName('Foo');
 
-        $repository->shouldReceive('findOneByCode')->twice()->andReturn(new Department());
+        $city2 = new City();
+        $city2->setName('Bar');
+
+        $locationUpgradeCitiesUtility->shouldReceive('isCityExisting')->twice()->andReturnFalse();
+        $locationUpgradeCitiesUtility->shouldReceive('createCityFromCsvRow')->twice()->andReturn($city1, $city2);
+
         $em->shouldReceive('persist')->twice();
         $em->shouldReceive('flush')->once();
 
@@ -80,7 +86,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
         $container->shouldReceive('get')->once()->with('chaplean_location.location_upgrade_cities.utility')
             ->andReturn($locationUpgradeCitiesUtility);
 
-        $em->shouldReceive('getRepository')->twice()->andReturn($repository);
+        $em->shouldReceive('getRepository')->once()->andReturn($repository);
 
         $city = new City();
         $city->setName('foo');
@@ -89,14 +95,20 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
         $em->shouldReceive('persist')->once()->with($city);
         $em->shouldReceive('flush')->twice();
 
+        $city1 = new City();
+        $city1->setName('Foo');
+
+        $city2 = new City();
+        $city2->setName('Bar');
+
         $locationUpgradeCitiesUtility->shouldReceive('getNewCities')->once()->andReturn([
             ['', 'BORDEAUX', '33000', '', '', ''],
             ['', 'BOURGES', '18000', '', '', '']
         ]);
 
         $locationUpgradeCitiesUtility->shouldReceive('isCityExisting')->twice()->andReturnFalse();
+        $locationUpgradeCitiesUtility->shouldReceive('createCityFromCsvRow')->twice()->andReturn($city1, $city2);
 
-        $repository->shouldReceive('findOneByCode')->twice()->andReturn(new Department());
         $em->shouldReceive('persist')->twice();
         $em->shouldReceive('flush')->once();
 
@@ -124,7 +136,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
         $container->shouldReceive('get')->once()->with('chaplean_location.location_upgrade_cities.utility')
             ->andReturn($locationUpgradeCitiesUtility);
 
-        $em->shouldReceive('getRepository')->twice()->andReturn($repository);
+        $em->shouldReceive('getRepository')->once()->andReturn($repository);
 
         $repository->shouldReceive('findAll')->once()->andReturn([]);
 
@@ -134,8 +146,8 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
         ]);
 
         $locationUpgradeCitiesUtility->shouldReceive('isCityExisting')->once()->andReturnFalse();
+        $locationUpgradeCitiesUtility->shouldReceive('createCityFromCsvRow')->twice()->andReturn(new City());
 
-        $repository->shouldReceive('findOneByCode')->once()->andReturn(new Department());
         $em->shouldReceive('persist')->once();
         $em->shouldReceive('flush')->once();
 
@@ -155,6 +167,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
         $container = \Mockery::mock(ContainerInterface::class);
         $doctrine = \Mockery::mock(RegistryInterface::class);
         $em = \Mockery::mock(EntityManager::class);
+
         $locationUpgradeCitiesUtility = \Mockery::mock(LocationUpgradeCitiesUtility::class);
         $repository = \Mockery::mock(EntityRepository::class);
 
@@ -163,7 +176,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
         $container->shouldReceive('get')->once()->with('chaplean_location.location_upgrade_cities.utility')
             ->andReturn($locationUpgradeCitiesUtility);
 
-        $em->shouldReceive('getRepository')->twice()->andReturn($repository);
+        $em->shouldReceive('getRepository')->once()->andReturn($repository);
 
         $repository->shouldReceive('findAll')->once()->andReturn([]);
 
@@ -171,9 +184,9 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
             ['', 'BORDEAUX', '33000', '', '', '']
         ]);
 
-        $locationUpgradeCitiesUtility->shouldReceive('isCityExisting')->once()->andReturnFalse();
+        $locationUpgradeCitiesUtility->shouldReceive('isCityExisting')->never();
+        $locationUpgradeCitiesUtility->shouldReceive('createCityFromCsvRow')->once()->andThrow(new EntityNotFoundException());
 
-        $repository->shouldReceive('findOneByCode')->once()->andReturnNull();
         $em->shouldReceive('persist')->never();
         $em->shouldReceive('flush')->once();
 
