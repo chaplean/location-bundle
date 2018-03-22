@@ -1,4 +1,8 @@
 services:
+    _defaults:
+        autowire: true
+        public: true
+
     chaplean_location.location_upgrade_cities.utility:
         class: Chaplean\Bundle\LocationBundle\Utility\LocationUpgradeCitiesUtility
         arguments: ['@doctrine']
