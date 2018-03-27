@@ -30,7 +30,7 @@
     ],
     "require": {
         "php": ">=7.0.8",
-        "chaplean/csv-bundle": "^6.0",
+        "chaplean/csv-bundle": "^7.0",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "jms/serializer-bundle": "^1.1 || ^2.0",

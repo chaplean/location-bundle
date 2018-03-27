@@ -4,38 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6acdf006d952d40c8e045aa30390d8d2",
+    "content-hash": "b775a9f2e655e6fe527cfda1de090866",
     "packages": [
         {
             "name": "chaplean/csv-bundle",
-            "version": "v6.1.2",
+            "version": "v7.0.0",
             "source": {
                 "type": "git",
                 "url": "git@git.chaplean.coop:private/bundle/csv-bundle.git",
-                "reference": "8651a07a38a0842844370a5094462c3aa18ba0c4"
+                "reference": "295400e04f0004fa74bcfeb99512c37db5565d69"
             },
             "require": {
                 "php": ">=7.0.8",
-                "symfony/config": "^2.8 || ^3.0 || ^4.0",
-                "symfony/console": "^2.8 || ^3.0 || ^4.0",
-                "symfony/dependency-injection": "^2.7|^3.0|^4.0",
-                "symfony/translation": "^2.7|^3.0|^4.0",
-                "symfony/yaml": "^2.8 || ^3.0 || ^4.0"
+                "symfony/config": "^3.0 || ^4.0",
+                "symfony/console": "^3.0 || ^4.0",
+                "symfony/dependency-injection": " ^3.0 || ^4.0",
+                "symfony/translation": "^3.0 || ^4.0",
+                "symfony/yaml": "^3.0 || ^4.0"
             },
             "require-dev": {
                 "chaplean/codeship-scripts": "^1.0",
                 "chaplean/coding-standard": "^1.1",
                 "mockery/mockery": "dev-master",
-                "phpunit/phpunit": "^6.3",
-                "satooshi/php-coveralls": "dev-master",
-                "symfony/http-kernel": "^2.8 || ^3.0 || ^4.0",
-                "symfony/var-dumper": "^2.8 || ^3.0 || ^4.0"
+                "phpunit/phpunit": "^7.0",
+                "symfony/http-kernel": "^3.0 || ^4.0",
+                "symfony/phpunit-bridge": "^4.0",
+                "symfony/var-dumper": "^3.0 || ^4.0"
             },
             "type": "symfony-bundle",
+            "extra": {
+                "symfony-app-dir": "app",
+                "symfony-bin-dir": "bin",
+                "symfony-var-dir": "var"
+            },
             "autoload": {
                 "psr-4": {
-                    "Chaplean\\Bundle\\CsvBundle\\": "",
-                    "Tests\\": "Tests"
+                    "Chaplean\\Bundle\\CsvBundle\\": ""
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Tests\\": "Tests/"
                 }
             },
             "license": [
@@ -48,7 +57,7 @@
                 }
             ],
             "description": "Parse CSV files",
-            "time": "2017-11-02T08:36:39+00:00"
+            "time": "2018-03-26T15:44:31+00:00"
         },
         {
             "name": "doctrine/annotations",
