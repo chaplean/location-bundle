@@ -2,6 +2,9 @@
 
 namespace Chaplean\Bundle\LocationBundle\Command;
 
+use Chaplean\Bundle\LocationBundle\Utility\CityUtility;
+use Chaplean\Bundle\LocationBundle\Utility\DepartmentUtility;
+use Chaplean\Bundle\LocationBundle\Utility\RegionUtility;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -37,9 +40,9 @@ class LocationLoadCitiesCommand extends ContainerAwareCommand
         $container = $this->getContainer();
 
         $em = $container->get('doctrine')->getManager();
-        $regionUtility = $container->get('chaplean_location.region_utility');
-        $departmentUtility = $container->get('chaplean_location.department_utility');
-        $cityUtility = $container->get('chaplean_location.city_utility');
+        $regionUtility = $container->get(RegionUtility::class);
+        $departmentUtility = $container->get(DepartmentUtility::class);
+        $cityUtility = $container->get(CityUtility::class);
 
         $regionUtility->loadRegion();
         $em->flush();

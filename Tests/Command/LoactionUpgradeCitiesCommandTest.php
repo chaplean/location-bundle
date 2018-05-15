@@ -39,7 +39,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
 
         $doctrine->shouldReceive('getManager')->once()->andReturn($em);
         $container->shouldReceive('get')->once()->with('doctrine')->andReturn($doctrine);
-        $container->shouldReceive('get')->once()->with('chaplean_location.location_upgrade_cities.utility')
+        $container->shouldReceive('get')->once()->with(LocationUpgradeCitiesUtility::class)
             ->andReturn($locationUpgradeCitiesUtility);
 
         $em->shouldReceive('getRepository')->once()->andReturn($repository);
@@ -83,7 +83,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
 
         $doctrine->shouldReceive('getManager')->once()->andReturn($em);
         $container->shouldReceive('get')->once()->with('doctrine')->andReturn($doctrine);
-        $container->shouldReceive('get')->once()->with('chaplean_location.location_upgrade_cities.utility')
+        $container->shouldReceive('get')->once()->with(LocationUpgradeCitiesUtility::class)
             ->andReturn($locationUpgradeCitiesUtility);
 
         $em->shouldReceive('getRepository')->once()->andReturn($repository);
@@ -133,7 +133,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
 
         $doctrine->shouldReceive('getManager')->once()->andReturn($em);
         $container->shouldReceive('get')->once()->with('doctrine')->andReturn($doctrine);
-        $container->shouldReceive('get')->once()->with('chaplean_location.location_upgrade_cities.utility')
+        $container->shouldReceive('get')->once()->with(LocationUpgradeCitiesUtility::class)
             ->andReturn($locationUpgradeCitiesUtility);
 
         $em->shouldReceive('getRepository')->once()->andReturn($repository);
@@ -173,7 +173,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
 
         $doctrine->shouldReceive('getManager')->once()->andReturn($em);
         $container->shouldReceive('get')->once()->with('doctrine')->andReturn($doctrine);
-        $container->shouldReceive('get')->once()->with('chaplean_location.location_upgrade_cities.utility')
+        $container->shouldReceive('get')->once()->with(LocationUpgradeCitiesUtility::class)
             ->andReturn($locationUpgradeCitiesUtility);
 
         $em->shouldReceive('getRepository')->once()->andReturn($repository);

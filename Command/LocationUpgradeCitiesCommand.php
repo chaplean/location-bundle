@@ -4,6 +4,7 @@ namespace Chaplean\Bundle\LocationBundle\Command;
 
 use Chaplean\Bundle\LocationBundle\Entity\City;
 use Chaplean\Bundle\LocationBundle\Utility\CityUtility;
+use Chaplean\Bundle\LocationBundle\Utility\LocationUpgradeCitiesUtility;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -37,7 +38,7 @@ class LocationUpgradeCitiesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $locationUpgradeCitiesUtility = $this->getContainer()->get('chaplean_location.location_upgrade_cities.utility');
+        $locationUpgradeCitiesUtility = $this->getContainer()->get(LocationUpgradeCitiesUtility::class);
 
         $citiesAdded = 0;
         $cityRepository = $em->getRepository('ChapleanLocationBundle:City');
