@@ -1,20 +1,8 @@
 services:
     _defaults:
         autowire: true
+        autoconfigure: true
         public: true
 
-    chaplean_location.location_upgrade_cities.utility:
-        class: Chaplean\Bundle\LocationBundle\Utility\LocationUpgradeCitiesUtility
-        arguments: ['@doctrine']
-
-    chaplean_location.region_utility:
-        class: Chaplean\Bundle\LocationBundle\Utility\RegionUtility
-        arguments: ['@doctrine']
-
-    chaplean_location.department_utility:
-        class: Chaplean\Bundle\LocationBundle\Utility\DepartmentUtility
-        arguments: ['@doctrine']
-
-    chaplean_location.city_utility:
-        class: Chaplean\Bundle\LocationBundle\Utility\CityUtility
-        arguments: ['@doctrine']
+    Chaplean\Bundle\LocationBundle\Utility\:
+        resource: '../../Utility/*'
