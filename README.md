@@ -24,7 +24,7 @@ new Chaplean\Bundle\LocationBundle\ChapleanLocationBundle(),
 
 Run
 ```bash
-bin/console doctrine:fixtures:load --fixtures vendor/chaplean/location-bundle/DataFixtures/ORM/ --append true
+bin/console location:load:cities
 ```
 or
 Add command in migration
@@ -36,12 +36,15 @@ public function postUp(Schema $schema)
     $application = new Application($kernel);
     $application->setAutoExit(false);
     
-    $exitCode = $application->run(new ArrayInput([
-        'command'    => 'doctrine:fixtures:load',
-        '--fixtures' => 'vendor/chaplean/location-bundle/DataFixtures/ORM/',
-        '--append'   => true
-    ]));
 
+    $exitCode = $application->run(
+        new ArrayInput(
+            [
+                'command'    => 'location:load:cities'
+            ]
+        )
+    );
+    
     $this->abortIf($exitCode !== 0, 'see Exception above ^');
 }
 ```

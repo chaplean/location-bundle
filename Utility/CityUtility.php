@@ -2,6 +2,7 @@
 
 namespace Chaplean\Bundle\LocationBundle\Utility;
 
+use Chaplean\Bundle\CsvBundle\Utility\CsvReader;
 use Chaplean\Bundle\LocationBundle\Entity\City;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -29,6 +30,43 @@ class CityUtility
     public function __construct(RegistryInterface $registry)
     {
         $this->em = $registry->getManager();
+    }
+
+    /**
+     * @return void
+     *
+     * @throws \Exception
+     */
+    public function loadCities()
+    {
+        $fileCity = new CsvReader(__DIR__ . '/../../Resources/doc/cities_2017.csv', ';', true);
+        $cities = $fileCity->get();
+
+        $cityRepository = $this->em->getRepository('ChapleanLocationBundle:City');
+        $departmentRepository = $this->em->getRepository('ChapleanLocationBundle:Department');
+
+        foreach ($cities as $cityTxt) {
+            $name = CityUtility::removeNumber($cityTxt[1]);
+            $zipcode = $cityTxt[2];
+            $departmentCode = CityUtility::getDepartmentCodeFromZipcode($zipcode);
+            $coords = CityUtility::extractLatitudeLongitude($cityTxt[5]);
+
+            $department = $departmentRepository->findOneByCode($departmentCode);
+
+            if ($cityRepository->findOneBy(['name' => $name, 'zipcode' => $zipcode]) !== null || $department === null) {
+                continue;
+            }
+
+            $city = new City();
+            $city->setName($name);
+            $city->setZipcode($zipcode);
+            $city->setLatitude($coords['latitude']);
+            $city->setLongitude($coords['longitude']);
+            $city->setDepartment($department);
+            $this->em->persist($city);
+        }
+
+        $this->em->flush();
     }
 
     /**
