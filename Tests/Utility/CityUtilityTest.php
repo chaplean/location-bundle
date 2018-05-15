@@ -109,7 +109,7 @@ class CityUtilityTest extends FunctionalTestCase
      */
     public function testFindOneCityByNameAndCoordinates()
     {
-        $cityUtility = $this->getContainer()->get('chaplean_location.city_utility');
+        $cityUtility = $this->getContainer()->get(CityUtility::class);
         $city = $cityUtility->findNearestCityByNameAndCoordinates('Bourges', 47.0833, 2.4);
 
         $this->assertInstanceOf(City::class, $city);
@@ -127,7 +127,7 @@ class CityUtilityTest extends FunctionalTestCase
      */
     public function testFindOneCityByNameAndCoordinatesUnknownName()
     {
-        $cityUtility = $this->getContainer()->get('chaplean_location.city_utility');
+        $cityUtility = $this->getContainer()->get(CityUtility::class);
         $city = $cityUtility->findNearestCityByNameAndCoordinates('Test', 47.0833, 2.4);
 
         $this->assertNull($city);
@@ -142,7 +142,7 @@ class CityUtilityTest extends FunctionalTestCase
      */
     public function testFindOneCityByNameAndCoordinatesWithSameName()
     {
-        $cityUtility = $this->getContainer()->get('chaplean_location.city_utility');
+        $cityUtility = $this->getContainer()->get(CityUtility::class);
         $city = $cityUtility->findNearestCityByNameAndCoordinates('Bordeaux', 44.83, -0.57);
 
         $this->assertInstanceOf(City::class, $city);
@@ -160,7 +160,7 @@ class CityUtilityTest extends FunctionalTestCase
      */
     public function testFindOneCityByNameAndCoordinatesWithSameCoordinates()
     {
-        $cityUtility = $this->getContainer()->get('chaplean_location.city_utility');
+        $cityUtility = $this->getContainer()->get(CityUtility::class);
         $city = $cityUtility->findNearestCityByNameAndCoordinates('Fausse-Ville', 44.83, -0.57);
 
         $this->assertInstanceOf(City::class, $city);

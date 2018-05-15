@@ -17,4 +17,27 @@ use Doctrine\ORM\EntityRepository;
  */
 class CityRepository extends EntityRepository
 {
+    /**
+     * @param int $search
+     *
+     * @return array
+     */
+    public function findZipcodeFromSearch($search)
+    {
+        $qb = $this->_em->createQueryBuilder();
+
+        $result = $qb->select('city.zipcode')
+            ->from('ChapleanLocationBundle:City', 'city')
+            ->where('city.zipcode LIKE :search')
+            ->setParameter('search', $search . '%')
+            ->orderBy('city.zipcode', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        if (!empty($result)) {
+            return array_column($result, 'zipcode');
+        }
+
+        return [];
+    }
 }

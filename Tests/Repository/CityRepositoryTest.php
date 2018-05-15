@@ -69,4 +69,17 @@ class CityRepositoryTest extends FunctionalTestCase
         $this->assertEquals(5, $city->getDepartment()->getId());
         $this->assertEquals('Limoges', $city->getName());
     }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findZipcodeFromSearch()
+     *
+     * @return void
+     */
+    public function testFindZipcodeFromSearch()
+    {
+        $results = $this->cityRepository->findZipcodeFromSearch(87);
+
+        $this->assertCount(1, $results);
+
+    }
 }
