@@ -39,7 +39,7 @@ class CityUtility
      */
     public function loadCities()
     {
-        $fileCity = new CsvReader(__DIR__ . '/../../Resources/doc/cities_2017.csv', ';', true);
+        $fileCity = new CsvReader(__DIR__ . '/../Resources/doc/cities_2017.csv', ';', true);
         $cities = $fileCity->get();
 
         $cityRepository = $this->em->getRepository('ChapleanLocationBundle:City');
@@ -65,8 +65,6 @@ class CityUtility
             $city->setDepartment($department);
             $this->em->persist($city);
         }
-
-        $this->em->flush();
     }
 
     /**

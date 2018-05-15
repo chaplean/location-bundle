@@ -41,14 +41,14 @@ class DepartmentUtility
     {
         $regionRepository = $this->em->getRepository('ChapleanLocationBundle:Region');
 
-        $fileDepartment = new CsvReader(__DIR__ . '/../../Resources/doc/departments_2014.csv', "\t", true);
-        $fileDepartmentCom = new CsvReader(__DIR__ . '/../../Resources/doc/com_departments_2016.csv', "\t", true);
+        $fileDepartment = new CsvReader(__DIR__ . '/../Resources/doc/departments_2014.csv', "\t", true);
+        $fileDepartmentCom = new CsvReader(__DIR__ . '/../Resources/doc/com_departments_2016.csv', "\t", true);
 
         $departments = array_merge($fileDepartment->get(), $fileDepartmentCom->get());
 
         foreach ($departments as $departmentTxt) {
             $regionCode = RegionUtility::getNewCodeRegion($departmentTxt[0]);
-            $region = $regionRepository->findOneByCode($regionCode);
+            $region = $regionRepository->findOneBy(['code' => $regionCode]);
 
             if ($region === null) {
                 continue;
@@ -61,7 +61,5 @@ class DepartmentUtility
 
             $this->em->persist($department);
         }
-
-        $this->em->flush();
     }
 }

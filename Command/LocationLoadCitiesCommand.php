@@ -35,17 +35,25 @@ class LocationLoadCitiesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $container = $this->getContainer();
+
+        $em = $container->get('doctrine')->getManager();
         $regionUtility = $container->get('chaplean_location.region_utility');
         $departmentUtility = $container->get('chaplean_location.department_utility');
         $cityUtility = $container->get('chaplean_location.city_utility');
 
         $regionUtility->loadRegion();
+        $em->flush();
+        $em->clear();
         $output->writeln('Regions added');
 
         $departmentUtility->loadDepartment();
+        $em->flush();
+        $em->clear();
         $output->writeln('Departments added');
 
         $cityUtility->loadCities();
+        $em->flush();
+        $em->clear();
         $output->writeln('Cities added');
     }
 }

@@ -3,8 +3,14 @@
 namespace Tests\Chaplean\Bundle\LocationBundle\Utility;
 
 use Chaplean\Bundle\LocationBundle\Entity\City;
+use Chaplean\Bundle\LocationBundle\Entity\Department;
+use Chaplean\Bundle\LocationBundle\Repository\CityRepository;
+use Chaplean\Bundle\LocationBundle\Repository\DepartmentRepository;
 use Chaplean\Bundle\LocationBundle\Utility\CityUtility;
 use Chaplean\Bundle\UnitBundle\Test\FunctionalTestCase;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\EntityManager;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 /**
  * Class CityUtility.
@@ -16,6 +22,8 @@ use Chaplean\Bundle\UnitBundle\Test\FunctionalTestCase;
  */
 class CityUtilityTest extends FunctionalTestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::reformatName()
      *
@@ -96,6 +104,8 @@ class CityUtilityTest extends FunctionalTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::findNearestCityByNameAndCoordinates()
      *
      * @return void
+     *
+     * @throws \Exception
      */
     public function testFindOneCityByNameAndCoordinates()
     {
@@ -112,6 +122,8 @@ class CityUtilityTest extends FunctionalTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::findNearestCityByNameAndCoordinates
      *
      * @return void
+     *
+     * @throws \Exception
      */
     public function testFindOneCityByNameAndCoordinatesUnknownName()
     {
@@ -125,6 +137,8 @@ class CityUtilityTest extends FunctionalTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::findNearestCityByNameAndCoordinates()
      *
      * @return void
+     *
+     * @throws \Exception
      */
     public function testFindOneCityByNameAndCoordinatesWithSameName()
     {
@@ -141,6 +155,8 @@ class CityUtilityTest extends FunctionalTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::findNearestCityByNameAndCoordinates()
      *
      * @return void
+     *
+     * @throws \Exception
      */
     public function testFindOneCityByNameAndCoordinatesWithSameCoordinates()
     {
@@ -151,5 +167,32 @@ class CityUtilityTest extends FunctionalTestCase
         $this->assertEquals('Fausse-Ville', $city->getName());
         $this->assertEquals(44.8333, $city->getLatitude());
         $this->assertEquals(-0.566667, $city->getLongitude());
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Utility\CityUtility::loadCities()
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    public function testLoadCities()
+    {
+        $doctrine = \Mockery::mock(Registry::class);
+        $manager = \Mockery::mock(EntityManager::class);
+        $cityRepo = \Mockery::mock(CityRepository::class);
+        $departmentRepo = \Mockery::mock(DepartmentRepository::class);
+        $department = \Mockery::mock(Department::class);
+
+        $doctrine->shouldReceive('getManager')->once()->andReturn($manager);
+        $manager->shouldReceive('getRepository')->once()->with('ChapleanLocationBundle:City')->andReturn($cityRepo);
+        $manager->shouldReceive('getRepository')->once()->with('ChapleanLocationBundle:Department')->andReturn($departmentRepo);
+        $cityRepo->shouldReceive('findOneBy')->times(39201)->andReturnNull();
+        $departmentRepo->shouldReceive('findOneByCode')->times(39201)->andReturn($department);
+        $manager->shouldReceive('persist')->times(39201)->andReturnNull();
+
+        $cityUtility = new CityUtility($doctrine);
+
+        $cityUtility->loadCities();
     }
 }

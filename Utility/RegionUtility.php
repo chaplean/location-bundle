@@ -50,8 +50,6 @@ class RegionUtility
             $region->setName(ucwords($reg[1]));
             $this->em->persist($region);
         }
-
-        $this->em->flush();
     }
 
     /**
