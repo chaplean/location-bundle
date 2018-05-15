@@ -26,7 +26,9 @@ before_script:
 test:
     stage: test
     script:
-        - phpdbg -qrr ./bin/phpunit --configuration phpunit.xml.dist --colors=never --coverage-html coverage/ --coverage-text
+        - phpdbg -qrr ./bin/paratest -p 1 --phpunit ./bin/phpunit --configuration phpunit.xml.dist --coverage-php coverage-cov/paratest.cov
+        - phpdbg -qrr vendor/phpcov.phar merge coverage-cov/ --text
+        - phpdbg -qrr vendor/phpcov.phar merge coverage-cov/ --html coverage
     artifacts:
         paths:
             - coverage/
