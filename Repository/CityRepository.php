@@ -30,12 +30,13 @@ class CityRepository extends EntityRepository
             ->from('ChapleanLocationBundle:City', 'city')
             ->where('city.zipcode LIKE :search')
             ->setParameter('search', $search . '%')
-            ->orderBy('city.zipcode', 'DESC')
+            ->orderBy('city.zipcode', 'ASC')
             ->getQuery()
             ->getResult();
 
         if (!empty($result)) {
-            return array_column($result, 'zipcode');
+            $zipcodes = array_column($result, 'zipcode');
+            return array_unique($zipcodes);
         }
 
         return [];
