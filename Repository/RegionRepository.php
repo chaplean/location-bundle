@@ -15,10 +15,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class RegionRepository extends EntityRepository
 {
+    const DOM_TOM_REGION_CODES = ['01', '02', '03', '04', '06', '19'];
     /**
      * @param string $zipcode
      *
      * @return Region
+     * @throws \Exception
      */
     public function findByZipcode($zipcode)
     {
@@ -35,6 +37,7 @@ class RegionRepository extends EntityRepository
      * @param string $code
      *
      * @return Region
+     * @throws \Exception
      */
     public function findOneByCode($code)
     {
@@ -45,5 +48,19 @@ class RegionRepository extends EntityRepository
             );
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * @return array|Region[]
+     * @throws \Exception
+     */
+    public function findAllMetropolitan()
+    {
+        $qb = $this->createQueryBuilder('r');
+        $qb->where(
+                $qb->expr()->notIn('r.code', self::DOM_TOM_REGION_CODES)
+            );
+
+        return $qb->getQuery()->getResult();
     }
 }

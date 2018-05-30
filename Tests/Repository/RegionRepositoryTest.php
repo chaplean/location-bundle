@@ -39,7 +39,7 @@ class RegionRepositoryTest extends FunctionalTestCase
     {
         $regions = $this->regionRepository->findAll();
 
-        $this->assertCount(3, $regions);
+        $this->assertCount(4, $regions);
     }
 
     /**
@@ -114,5 +114,20 @@ class RegionRepositoryTest extends FunctionalTestCase
         $region = $this->regionRepository->findOneByCode('99');
 
         $this->assertNull($region);
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\RegionRepository::findAllMetropolitan()
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function testFindAllMetropolitan()
+    {
+        $regions = $this->regionRepository->findAll();
+        $this->assertCount(4, $regions);
+
+        $regions = $this->regionRepository->findAllMetropolitan();
+        $this->assertCount(3, $regions);
     }
 }

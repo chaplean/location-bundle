@@ -52,8 +52,8 @@ class DepartmentRepositoryTest extends FunctionalTestCase
         $department = $this->departmentRepository->findOneBy(array('id' => '5'));
 
         $this->assertInstanceOf(Department::class, $department);
-        $this->assertEquals('Haute-Vienne', $department->getName());
-        $this->assertEquals('2', $department->getRegion()->getId());
+        $this->assertEquals('Gironde', $department->getName());
+        $this->assertEquals('1', $department->getRegion()->getId());
     }
 
     /**
@@ -66,7 +66,7 @@ class DepartmentRepositoryTest extends FunctionalTestCase
         $department = $this->departmentRepository->findOneBy(array('name' => 'Cher'));
 
         $this->assertInstanceOf(Department::class, $department);
-        $this->assertEquals('6', $department->getId());
+        $this->assertEquals('7', $department->getId());
         $this->assertEquals('3', $department->getRegion()->getId());
     }
 
@@ -82,7 +82,7 @@ class DepartmentRepositoryTest extends FunctionalTestCase
         $department = $this->departmentRepository->findOneBy(array('region' => $region));
 
         $this->assertInstanceOf(Department::class, $department);
-        $this->assertEquals('4', $department->getId());
+        $this->assertEquals('5', $department->getId());
         $this->assertEquals('Gironde', $department->getName());
     }
 }
