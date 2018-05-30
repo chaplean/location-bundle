@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class RegionRepository extends EntityRepository
 {
-    const DOM_TOM_REGION_CODES = ['01', '02', '03', '04', '06', '19'];
+    const DOM_TOM_REGION_CODES = ['01', '02', '03', '04', '06', '99'];
     /**
      * @param string $zipcode
      *
