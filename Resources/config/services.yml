@@ -4,5 +4,25 @@ services:
         autoconfigure: true
         public: true
 
+    chaplean_location.city_utility:
+        class: Chaplean\Bundle\LocationBundle\Utility\CityUtility
+        arguments: ['@doctrine']
+        deprecated: 'The "%service_id%" service is deprecated. Use class name instead'
+
+    chaplean_location.department_utility:
+        class: Chaplean\Bundle\LocationBundle\Utility\DepartmentUtility
+        arguments: ['@doctrine']
+        deprecated: 'The "%service_id%" service is deprecated. Use class name instead'
+
+    chaplean_location.region_utility:
+        class: Chaplean\Bundle\LocationBundle\Utility\RegionUtility
+        arguments: ['@doctrine']
+        deprecated: 'The "%service_id%" service is deprecated. Use class name instead'
+
+    chaplean_location.location_upgrade_cities.utility:
+        class: Chaplean\Bundle\LocationBundle\Utility\LocationUpgradeCitiesUtility
+        arguments: ['@doctrine']
+        deprecated: 'The "%service_id%" service is deprecated. Use class name instead'
+
     Chaplean\Bundle\LocationBundle\Utility\:
         resource: '../../Utility/*'
