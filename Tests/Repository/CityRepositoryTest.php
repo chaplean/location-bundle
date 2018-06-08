@@ -39,7 +39,7 @@ class CityRepositoryTest extends FunctionalTestCase
     {
         $cities = $this->cityRepository->findAll();
 
-        $this->assertCount(8, $cities);
+        $this->assertCount(10, $cities);
     }
 
     /**
@@ -49,10 +49,9 @@ class CityRepositoryTest extends FunctionalTestCase
      */
     public function testFindOneCityByName()
     {
-        $city = $this->cityRepository->findOneBy(array('name' => 'Le Subdray'));
+        $city = $this->cityRepository->findOneBy(['name' => 'Le Subdray']);
 
         $this->assertInstanceOf(City::class, $city);
-        $this->assertEquals(7, $city->getDepartment()->getId());
         $this->assertEquals('18570', $city->getZipcode());
     }
 
@@ -63,10 +62,9 @@ class CityRepositoryTest extends FunctionalTestCase
      */
     public function testFindOneCityByZipcode()
     {
-        $city = $this->cityRepository->findOneBy(array('zipcode' => '87000'));
+        $city = $this->cityRepository->findOneBy(['zipcode' => '87000']);
 
         $this->assertInstanceOf(City::class, $city);
-        $this->assertEquals(6, $city->getDepartment()->getId());
         $this->assertEquals('Limoges', $city->getName());
     }
 

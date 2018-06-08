@@ -24,6 +24,7 @@ class RegionTest extends FunctionalTestCase
 
     /**
      * @return void
+     * @throws \Exception
      */
     public function setUp()
     {
@@ -73,12 +74,12 @@ class RegionTest extends FunctionalTestCase
         $regionSerialized = $this->serializer->serialize($region, 'json');
 
         $this->assertEquals(
-            array(
+            [
                 'name'        => 'SuperRegion',
                 'code'        => '05',
-                'departments' => array(),
+                'departments' => [],
                 'dtype'       => 'region',
-            ),
+            ],
             json_decode($regionSerialized, true)
         );
     }
@@ -97,13 +98,13 @@ class RegionTest extends FunctionalTestCase
             $region,
             'json',
             SerializationContext::create()
-                ->setGroups(array('location_name'))
+                ->setGroups(['location_name'])
         );
 
         $this->assertEquals(
-            array(
+            [
                 'name' => 'SuperRegion'
-            ),
+            ],
             json_decode($regionSerialized, true)
         );
     }
@@ -122,14 +123,14 @@ class RegionTest extends FunctionalTestCase
             $region,
             'json',
             SerializationContext::create()
-                ->setGroups(array('location_name', 'region_code'))
+                ->setGroups(['location_name', 'region_code'])
         );
 
         $this->assertEquals(
-            array(
+            [
                 'name' => 'SuperRegion',
                 'code' => '05',
-            ),
+            ],
             json_decode($regionSerialized, true)
         );
     }

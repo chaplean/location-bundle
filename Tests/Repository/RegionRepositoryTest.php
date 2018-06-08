@@ -39,7 +39,7 @@ class RegionRepositoryTest extends FunctionalTestCase
     {
         $regions = $this->regionRepository->findAll();
 
-        $this->assertCount(4, $regions);
+        $this->assertCount(5, $regions);
     }
 
     /**
@@ -49,10 +49,9 @@ class RegionRepositoryTest extends FunctionalTestCase
      */
     public function testFindRegionByName()
     {
-        $region = $this->regionRepository->findOneBy(array('name' => 'Aquitaine'));
+        $region = $this->regionRepository->findOneBy(['name' => 'Aquitaine']);
 
         $this->assertInstanceOf(Region::class, $region);
-        $this->assertEquals('1', $region->getId());
         $this->assertEquals('Aquitaine', $region->getName());
     }
 
@@ -63,7 +62,7 @@ class RegionRepositoryTest extends FunctionalTestCase
      */
     public function testFindRegionById()
     {
-        $region = $this->regionRepository->findOneBy(array('code' => '74'));
+        $region = $this->regionRepository->findOneBy(['code' => '74']);
 
         $this->assertInstanceOf(Region::class, $region);
         $this->assertEquals('74', $region->getCode());
@@ -74,6 +73,7 @@ class RegionRepositoryTest extends FunctionalTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Repository\RegionRepository::findByZipcode()
      *
      * @return void
+     * @throws \Exception
      */
     public function testFindRegionByZipcode()
     {
@@ -97,6 +97,7 @@ class RegionRepositoryTest extends FunctionalTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Repository\RegionRepository::findOneByCode()
      *
      * @return void
+     * @throws \Exception
      */
     public function testFindRegionByCode()
     {
@@ -125,7 +126,7 @@ class RegionRepositoryTest extends FunctionalTestCase
     public function testFindAllMetropolitan()
     {
         $regions = $this->regionRepository->findAll();
-        $this->assertCount(4, $regions);
+        $this->assertCount(5, $regions);
 
         $regions = $this->regionRepository->findAllMetropolitan();
         $this->assertCount(3, $regions);

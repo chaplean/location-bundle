@@ -11,6 +11,8 @@ use Chaplean\Bundle\UnitBundle\Test\FunctionalTestCase;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\MockInterface;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * Class CityUtility.
@@ -110,6 +112,8 @@ class CityUtilityTest extends FunctionalTestCase
     public function testFindOneCityByNameAndCoordinates()
     {
         $cityUtility = $this->getContainer()->get(CityUtility::class);
+
+        /** @var City $city */
         $city = $cityUtility->findNearestCityByNameAndCoordinates('Bourges', 47.0833, 2.4);
 
         $this->assertInstanceOf(City::class, $city);
@@ -143,6 +147,8 @@ class CityUtilityTest extends FunctionalTestCase
     public function testFindOneCityByNameAndCoordinatesWithSameName()
     {
         $cityUtility = $this->getContainer()->get(CityUtility::class);
+
+        /** @var City $city */
         $city = $cityUtility->findNearestCityByNameAndCoordinates('Bordeaux', 44.83, -0.57);
 
         $this->assertInstanceOf(City::class, $city);
@@ -161,6 +167,8 @@ class CityUtilityTest extends FunctionalTestCase
     public function testFindOneCityByNameAndCoordinatesWithSameCoordinates()
     {
         $cityUtility = $this->getContainer()->get(CityUtility::class);
+
+        /** @var City $city */
         $city = $cityUtility->findNearestCityByNameAndCoordinates('Fausse-Ville', 44.83, -0.57);
 
         $this->assertInstanceOf(City::class, $city);
@@ -178,6 +186,7 @@ class CityUtilityTest extends FunctionalTestCase
      */
     public function testLoadCities()
     {
+        /** @var RegistryInterface|MockInterface $doctrine */
         $doctrine = \Mockery::mock(Registry::class);
         $manager = \Mockery::mock(EntityManager::class);
         $cityRepo = \Mockery::mock(CityRepository::class);

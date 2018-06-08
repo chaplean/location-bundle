@@ -25,6 +25,7 @@ class CityTest extends FunctionalTestCase
 
     /**
      * @return void
+     * @throws \Exception
      */
     public function setUp()
     {
@@ -86,15 +87,15 @@ class CityTest extends FunctionalTestCase
 
         $citySerialized = $this->serializer->serialize($city, 'json');
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             'name' => 'SuperCity',
             'zipcode' => 15000,
-            'department' => array(
-                'cities' => array(),
+            'department' => [
+                'cities' => [],
                 'dtype' => 'department'
-            ),
+            ],
             'dtype' => 'city',
-        ), json_decode($citySerialized, true));
+        ], json_decode($citySerialized, true));
     }
 
     /**
@@ -110,11 +111,11 @@ class CityTest extends FunctionalTestCase
         $city->setLongitude(2.45);
         $city->setDepartment(new Department());
 
-        $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(array('location_name')));
+        $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(['location_name']));
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             'name' => 'SuperCity'
-        ), json_decode($citySerialized, true));
+        ], json_decode($citySerialized, true));
     }
 
     /**
@@ -129,12 +130,12 @@ class CityTest extends FunctionalTestCase
         $city->setLongitude(2.45);
         $city->setDepartment(new Department());
 
-        $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(array('location_name', 'city_zipcode')));
+        $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(['location_name', 'city_zipcode']));
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             'name' => 'SuperCity',
             'zipcode' => 15000,
-        ), json_decode($citySerialized, true));
+        ], json_decode($citySerialized, true));
     }
 
     /**
@@ -184,35 +185,36 @@ class CityTest extends FunctionalTestCase
     public function containsLocationsProvider()
     {
         return [
-            ['city-1', 'region-72', false],
-            ['city-1', 'region-74', false],
-            ['city-1', 'department-33', false],
-            ['city-1', 'department-87', false],
-            ['city-1', 'city-1', true],
-            ['city-1', 'city-2', false],
+            ['city-1', 'region-72', true, false],
+            ['city-1', 'region-74', true, false],
+            ['city-1', 'department-33', true, false],
+            ['city-1', 'department-87', true, false],
+            ['city-1', 'city-1', true, true],
+            ['city-1', 'city-2', true, false],
         ];
     }
 
     /**
-     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::containsLocation()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\City::compareIds()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::containsLocation()
      * @covers \Chaplean\Bundle\LocationBundle\Entity\Location::compareIds()
      *
      * @dataProvider containsLocationsProvider
      *
      * @param string  $cityName
      * @param string  $locationName
+     * @param boolean $strict
      * @param boolean $expected
      *
      * @return void
      */
-    public function testContainsLocation($cityName, $locationName, $expected)
+    public function testContainsLocation($cityName, $locationName, $strict, $expected)
     {
         $city = $this->getReference($cityName);
         $location = $this->getReference($locationName);
 
-        $this->assertEquals($expected, $city->containsLocation($location));
-        $this->assertEquals($expected, $location->isLocatedIn($city));
+        $this->assertEquals($expected, $city->containsLocation($location, $strict));
+        $this->assertEquals($expected, $location->isLocatedIn($city, $strict));
     }
 
     /**
@@ -225,5 +227,20 @@ class CityTest extends FunctionalTestCase
         $location = $this->getReference('city-1');
 
         $this->assertFalse($location->isLocatedIn(null));
+    }
+
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::containsLocation()
+     * @covers \Chaplean\Bundle\LocationBundle\Entity\City::compareIds()
+     *
+     * @return void
+     */
+    public function testContainsLocationWithSameCityAndDifferentZipcode()
+    {
+        $location1 = $this->getReference('city-paris-75001');
+        $location2 = $this->getReference('city-paris-75002');
+
+        $this->assertFalse($location1->containsLocation($location2, true));
+        $this->assertTrue($location1->containsLocation($location2, false));
     }
 }

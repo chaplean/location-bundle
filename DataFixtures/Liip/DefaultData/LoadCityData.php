@@ -23,6 +23,7 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
      * @param ObjectManager $manager
      *
      * @return void
+     * @throws \Exception
      */
     public function load(ObjectManager $manager)
     {
@@ -32,15 +33,21 @@ class LoadCityData extends AbstractFixture implements DependentFixtureInterface
 
         $cpt = 1;
         foreach ($cities as $cityTxt) {
+            $name = str_replace('"', '', ucwords($cityTxt[1]));
+            $zipcode = str_replace('"', '', $cityTxt[2]);
+
             $city = new City();
-            $city->setName(str_replace('"', '', ucwords($cityTxt[1])));
-            $city->setZipcode(str_replace('"', '', $cityTxt[2]));
+            $city->setName($name);
+            $city->setZipcode($zipcode);
             $city->setLatitude((float) str_replace('"', '', $cityTxt[4]));
             $city->setLongitude((float) str_replace('"', '', $cityTxt[3]));
             $city->setDepartment($this->getReference('department-' . str_replace('"', '', $cityTxt[0])));
 
             $this->setReference('city-' . $cpt, $city);
+            $this->setReference('city-' . strtolower($name) . '-' . $zipcode, $city);
+
             $manager->persist($city);
+
             $cpt++;
         }
 

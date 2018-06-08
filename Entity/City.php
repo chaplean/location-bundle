@@ -211,11 +211,16 @@ class City extends Location
      * Returns wether or not the given $location contains this Location
      *
      * @param Location|null $location
+     * @param boolean       $strict
      *
      * @return boolean
      */
-    public function containsLocation(Location $location = null)
+    public function containsLocation(Location $location = null, $strict = true)
     {
-        return $this->compareIds($location !== null ? $location->getCity() : null);
+        if ($location instanceof City && !$strict) {
+            return $this->name === $location->getName() && $this->getDepartment()->getId() === $location->getDepartment()->getId();
+        }
+
+        return $this->compareIds(($location !== null ? $location->getCity() : null));
     }
 }

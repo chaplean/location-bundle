@@ -28,6 +28,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Command\LocationUpgradeCitiesCommand::execute()
      *
      * @return void
+     * @throws \Exception
      */
     public function testExecute()
     {
@@ -72,6 +73,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Command\LocationUpgradeCitiesCommand::execute()
      *
      * @return void
+     * @throws \Exception
      */
     public function testExecuteWithUpdatableCity()
     {
@@ -122,6 +124,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Command\LocationUpgradeCitiesCommand::execute()
      *
      * @return void
+     * @throws \Exception
      */
     public function testExecuteWithDoublonInFile()
     {
@@ -161,6 +164,7 @@ class LocationUpgradeCitiesCommandTest extends MockeryTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Command\LocationUpgradeCitiesCommand::execute()
      *
      * @return void
+     * @throws \Exception
      */
     public function testExecuteWithNotFoundDepartment()
     {

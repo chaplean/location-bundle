@@ -39,7 +39,7 @@ class DepartmentRepositoryTest extends FunctionalTestCase
     {
         $departments = $this->departmentRepository->findAll();
 
-        $this->assertCount(5, $departments);
+        $this->assertCount(6, $departments);
     }
 
     /**
@@ -49,11 +49,10 @@ class DepartmentRepositoryTest extends FunctionalTestCase
      */
     public function testFindOneDepartmentById()
     {
-        $department = $this->departmentRepository->findOneBy(array('id' => '5'));
+        $department = $this->departmentRepository->findOneBy(['id' => '6']);
 
         $this->assertInstanceOf(Department::class, $department);
         $this->assertEquals('Gironde', $department->getName());
-        $this->assertEquals('1', $department->getRegion()->getId());
     }
 
     /**
@@ -63,10 +62,9 @@ class DepartmentRepositoryTest extends FunctionalTestCase
      */
     public function testFindOneDepartmentByName()
     {
-        $department = $this->departmentRepository->findOneBy(array('name' => 'Cher'));
+        $department = $this->departmentRepository->findOneBy(['name' => 'Cher']);
 
         $this->assertInstanceOf(Department::class, $department);
-        $this->assertEquals('7', $department->getId());
         $this->assertEquals('3', $department->getRegion()->getId());
     }
 
@@ -78,11 +76,10 @@ class DepartmentRepositoryTest extends FunctionalTestCase
     public function testFindOneDepartmentByRegion()
     {
         $regionRepository = $this->em->getRepository('ChapleanLocationBundle:Region');
-        $region = $regionRepository->findOneBy(array('name' => 'Aquitaine'));
-        $department = $this->departmentRepository->findOneBy(array('region' => $region));
+        $region = $regionRepository->findOneBy(['name' => 'Aquitaine']);
+        $department = $this->departmentRepository->findOneBy(['region' => $region]);
 
         $this->assertInstanceOf(Department::class, $department);
-        $this->assertEquals('5', $department->getId());
         $this->assertEquals('Gironde', $department->getName());
     }
 }

@@ -74,6 +74,7 @@ class LocationUpgradeCitiesUtilityTest extends MockeryTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Utility\LocationUpgradeCitiesUtility::createCityFromCsvRow()
      *
      * @return void
+     * @throws \Exception
      */
     public function testCreateCityFromRow()
     {
@@ -102,6 +103,7 @@ class LocationUpgradeCitiesUtilityTest extends MockeryTestCase
      * @covers \Chaplean\Bundle\LocationBundle\Utility\LocationUpgradeCitiesUtility::createCityFromCsvRow()
      *
      * @return void
+     * @throws \Exception
      * @expectedException \Doctrine\ORM\EntityNotFoundException
      * @expectedExceptionMessage Department (33) not found
      */

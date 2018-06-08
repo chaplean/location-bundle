@@ -7,6 +7,8 @@ use Chaplean\Bundle\UnitBundle\Test\FunctionalTestCase;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\MockInterface;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * Class RegionUtilityTest.
@@ -29,6 +31,7 @@ class RegionUtilityTest extends FunctionalTestCase
      */
     public function testLoadRegion()
     {
+        /** @var RegistryInterface|MockInterface $doctrine */
         $doctrine = \Mockery::mock(Registry::class);
         $manager = \Mockery::mock(EntityManager::class);
 

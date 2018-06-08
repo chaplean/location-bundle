@@ -25,6 +25,7 @@ class DepartmentTest extends FunctionalTestCase
 
     /**
      * @return void
+     * @throws \Exception
      */
     public function setUp()
     {
@@ -75,16 +76,16 @@ class DepartmentTest extends FunctionalTestCase
 
         $departmentSerialized = $this->serializer->serialize($department, 'json');
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             'name' => 'SuperDepartment',
             'code' => '05',
-            'cities' => array(),
-            'region' => array(
-                'departments' => array(),
+            'cities' => [],
+            'region' => [
+                'departments' => [],
                 'dtype' => 'region'
-            ),
+            ],
             'dtype' => 'department',
-        ), json_decode($departmentSerialized, true));
+        ], json_decode($departmentSerialized, true));
     }
 
     /**
@@ -98,11 +99,11 @@ class DepartmentTest extends FunctionalTestCase
         $department->setCode('05');
         $department->setRegion(new Region());
 
-        $departmentSerialized = $this->serializer->serialize($department, 'json', SerializationContext::create()->setGroups(array('location_name')));
+        $departmentSerialized = $this->serializer->serialize($department, 'json', SerializationContext::create()->setGroups(['location_name']));
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             'name' => 'SuperDepartment'
-        ), json_decode($departmentSerialized, true));
+        ], json_decode($departmentSerialized, true));
     }
 
     /**
@@ -116,12 +117,12 @@ class DepartmentTest extends FunctionalTestCase
         $department->setCode('05');
         $department->setRegion(new Region());
 
-        $departmentSerialized = $this->serializer->serialize($department, 'json', SerializationContext::create()->setGroups(array('location_name', 'department_code')));
+        $departmentSerialized = $this->serializer->serialize($department, 'json', SerializationContext::create()->setGroups(['location_name', 'department_code']));
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             'name' => 'SuperDepartment',
             'code' => '05',
-        ), json_decode($departmentSerialized, true));
+        ], json_decode($departmentSerialized, true));
     }
 
     /**
