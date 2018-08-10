@@ -19,6 +19,8 @@ use JMS\Serializer\Annotation as JMS;
  */
 class Region extends Location
 {
+    const DOM_TOM_REGION_CODES = ['01', '02', '03', '04', '06', '99'];
+
     /**
      * @var string
      *

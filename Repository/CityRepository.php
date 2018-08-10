@@ -3,6 +3,7 @@
 namespace Chaplean\Bundle\LocationBundle\Repository;
 
 use Chaplean\Bundle\LocationBundle\Entity\City;
+use Chaplean\Bundle\LocationBundle\Entity\Region;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -29,6 +30,33 @@ class CityRepository extends EntityRepository
         $result = $qb->select('city.zipcode')
             ->from('ChapleanLocationBundle:City', 'city')
             ->where('city.zipcode LIKE :search')
+            ->setParameter('search', $search . '%')
+            ->orderBy('city.zipcode', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        if (!empty($result)) {
+            $zipcodes = array_column($result, 'zipcode');
+            return array_unique($zipcodes);
+        }
+
+        return [];
+    }
+    /**
+     * @param int $search
+     *
+     * @return array
+     */
+    public function findMetropolitanZipcodeFromSearch($search)
+    {
+        $qb = $this->_em->createQueryBuilder();
+
+        $result = $qb->select('city.zipcode')
+            ->from('ChapleanLocationBundle:City', 'city')
+            ->join('city.department', 'd')
+            ->join('d.region', 'r')
+            ->where('city.zipcode LIKE :search')
+            ->andWhere($qb->expr()->notIn('r.code', Region::DOM_TOM_REGION_CODES))
             ->setParameter('search', $search . '%')
             ->orderBy('city.zipcode', 'ASC')
             ->getQuery()

@@ -39,7 +39,7 @@ class DepartmentRepositoryTest extends FunctionalTestCase
     {
         $departments = $this->departmentRepository->findAll();
 
-        $this->assertCount(6, $departments);
+        $this->assertCount(7, $departments);
     }
 
     /**

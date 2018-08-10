@@ -39,7 +39,7 @@ class CityRepositoryTest extends FunctionalTestCase
     {
         $cities = $this->cityRepository->findAll();
 
-        $this->assertCount(10, $cities);
+        $this->assertCount(11, $cities);
     }
 
     /**
@@ -78,6 +78,17 @@ class CityRepositoryTest extends FunctionalTestCase
         $results = $this->cityRepository->findZipcodeFromSearch(87);
 
         $this->assertCount(1, $results);
+    }
 
+    /**
+     * @covers \Chaplean\Bundle\LocationBundle\Repository\CityRepository::findMetropolitanZipcodeFromSearch()
+     *
+     * @return void
+     */
+    public function testFindMetropolitanZipcodeFromSearch()
+    {
+        $results = $this->cityRepository->findMetropolitanZipcodeFromSearch(97);
+
+        $this->assertCount(0, $results);
     }
 }
