@@ -6,8 +6,8 @@ use Chaplean\Bundle\LocationBundle\Entity\City;
 use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Chaplean\Bundle\LocationBundle\Entity\Region;
 use Chaplean\Bundle\UnitBundle\Test\FunctionalTestCase;
-use JMS\Serializer\SerializationContext;
-use JMS\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * CityTest.php.
@@ -31,7 +31,7 @@ class CityTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->serializer = $this->getContainer()->get('jms_serializer');
+        $this->serializer = $this->getContainer()->get('serializer');
     }
 
     /**
@@ -111,7 +111,7 @@ class CityTest extends FunctionalTestCase
         $city->setLongitude(2.45);
         $city->setDepartment(new Department());
 
-        $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(['location_name']));
+        $citySerialized = $this->serializer->serialize($city, 'json', ['groups' => ['location_name']]);
 
         $this->assertEquals([
             'name' => 'SuperCity'
@@ -130,7 +130,7 @@ class CityTest extends FunctionalTestCase
         $city->setLongitude(2.45);
         $city->setDepartment(new Department());
 
-        $citySerialized = $this->serializer->serialize($city, 'json', SerializationContext::create()->setGroups(['location_name', 'city_zipcode']));
+        $citySerialized = $this->serializer->serialize($city, 'json', ['groups' => ['location_name', 'city_zipcode']]);
 
         $this->assertEquals([
             'name' => 'SuperCity',

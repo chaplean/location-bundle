@@ -29,7 +29,6 @@ class AppKernel extends Kernel
             new Liip\FunctionalTestBundle\LiipFunctionalTestBundle(),
             new Chaplean\Bundle\LocationBundle\ChapleanLocationBundle(),
             new Chaplean\Bundle\CsvBundle\ChapleanCsvBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
         ];
 
         return $bundles;

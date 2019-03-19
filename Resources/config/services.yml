@@ -26,3 +26,5 @@ services:
 
     Chaplean\Bundle\LocationBundle\Utility\:
         resource: '../../Utility/*'
+
+    Chaplean\Bundle\LocationBundle\Serializer\Handler\CircularReferenceHandler: ~

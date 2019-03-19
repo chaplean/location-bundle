@@ -4,7 +4,8 @@ namespace Chaplean\Bundle\LocationBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * Region
@@ -14,8 +15,6 @@ use JMS\Serializer\Annotation as JMS;
  *     uniqueConstraints={@ORM\UniqueConstraint(name="region_code_UNIQUE", columns={"code"})}
  * )
  * @ORM\Entity(repositoryClass="Chaplean\Bundle\LocationBundle\Repository\RegionRepository")
- *
- * @JMS\ExclusionPolicy("all")
  */
 class Region extends Location
 {
@@ -26,8 +25,7 @@ class Region extends Location
      *
      * @ORM\Column(type="string", unique=true, length=2, nullable=false, name="code")
      *
-     * @JMS\Expose
-     * @JMS\Groups({"region_code"})
+     * @Groups({"region_code"})
      */
     private $code;
 
@@ -36,9 +34,8 @@ class Region extends Location
      *
      * @ORM\OneToMany(targetEntity="Chaplean\Bundle\LocationBundle\Entity\Department", mappedBy="region")
      *
-     * @JMS\Expose
-     * @JMS\MaxDepth(depth=1)
-     * @JMS\Groups({"region_departments"})
+     * @MaxDepth(1)
+     * @Groups({"region_departments"})
      */
     private $departments;
 

@@ -6,8 +6,7 @@ use Chaplean\Bundle\LocationBundle\Entity\City;
 use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Chaplean\Bundle\LocationBundle\Entity\Region;
 use Chaplean\Bundle\UnitBundle\Test\FunctionalTestCase;
-use JMS\Serializer\SerializationContext;
-use JMS\Serializer\Serializer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * DepartmentTest.php.
@@ -31,7 +30,7 @@ class DepartmentTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->serializer = $this->getContainer()->get('jms_serializer');
+        $this->serializer = $this->getContainer()->get('serializer');
     }
 
     /**
@@ -99,7 +98,7 @@ class DepartmentTest extends FunctionalTestCase
         $department->setCode('05');
         $department->setRegion(new Region());
 
-        $departmentSerialized = $this->serializer->serialize($department, 'json', SerializationContext::create()->setGroups(['location_name']));
+        $departmentSerialized = $this->serializer->serialize($department, 'json', ['groups' => ['location_name']]);
 
         $this->assertEquals([
             'name' => 'SuperDepartment'
@@ -117,7 +116,7 @@ class DepartmentTest extends FunctionalTestCase
         $department->setCode('05');
         $department->setRegion(new Region());
 
-        $departmentSerialized = $this->serializer->serialize($department, 'json', SerializationContext::create()->setGroups(['location_name', 'department_code']));
+        $departmentSerialized = $this->serializer->serialize($department, 'json', ['groups' => ['location_name', 'department_code']]);
 
         $this->assertEquals([
             'name' => 'SuperDepartment',

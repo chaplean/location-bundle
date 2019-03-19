@@ -4,7 +4,8 @@ namespace Chaplean\Bundle\LocationBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * Department
@@ -14,8 +15,6 @@ use JMS\Serializer\Annotation as JMS;
  *     uniqueConstraints={@ORM\UniqueConstraint(name="department_code_UNIQUE", columns={"code"})}
  * )
  * @ORM\Entity(repositoryClass="Chaplean\Bundle\LocationBundle\Repository\DepartmentRepository")
- *
- * @JMS\ExclusionPolicy("all")
  */
 class Department extends Location
 {
@@ -24,8 +23,7 @@ class Department extends Location
      *
      * @ORM\Column(type="string", unique=true, length=3, nullable=false, name="code")
      *
-     * @JMS\Expose
-     * @JMS\Groups({"department_code"})
+     * @Groups({"department_code"})
      */
     private $code;
 
@@ -35,9 +33,7 @@ class Department extends Location
      * @ORM\ManyToOne(targetEntity="Chaplean\Bundle\LocationBundle\Entity\Region", inversedBy="departments")
      * @ORM\JoinColumn(name="region_id", referencedColumnName="id", nullable=false)
      *
-     * @JMS\Expose
-     * @JMS\MaxDepth(depth=1)
-     * @JMS\Groups({"department_region"})
+     * @Groups({"department_region"})
      */
     private $region;
 
@@ -46,9 +42,8 @@ class Department extends Location
      *
      * @ORM\OneToMany(targetEntity="Chaplean\Bundle\LocationBundle\Entity\City", mappedBy="department")
      *
-     * @JMS\Expose
-     * @JMS\MaxDepth(depth=1)
-     * @JMS\Groups({"department_cities"})
+     * @MaxDepth(1)
+     * @Groups({"department_cities"})
      */
     private $cities;
 

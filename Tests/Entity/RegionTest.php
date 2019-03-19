@@ -5,8 +5,7 @@ namespace Tests\Chaplean\Bundle\LocationBundle\Entity;
 use Chaplean\Bundle\LocationBundle\Entity\Department;
 use Chaplean\Bundle\LocationBundle\Entity\Region;
 use Chaplean\Bundle\UnitBundle\Test\FunctionalTestCase;
-use JMS\Serializer\SerializationContext;
-use JMS\Serializer\Serializer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * RegionCity.php.
@@ -31,7 +30,7 @@ class RegionTest extends FunctionalTestCase
         parent::setUp();
 
         $this->serializer = $this->getContainer()
-            ->get('jms_serializer');
+            ->get('serializer');
     }
 
     /**
@@ -97,8 +96,7 @@ class RegionTest extends FunctionalTestCase
         $regionSerialized = $this->serializer->serialize(
             $region,
             'json',
-            SerializationContext::create()
-                ->setGroups(['location_name'])
+            ['groups' => ['location_name']]
         );
 
         $this->assertEquals(
@@ -122,8 +120,7 @@ class RegionTest extends FunctionalTestCase
         $regionSerialized = $this->serializer->serialize(
             $region,
             'json',
-            SerializationContext::create()
-                ->setGroups(['location_name', 'region_code'])
+            ['groups' => ['location_name', 'region_code']]
         );
 
         $this->assertEquals(

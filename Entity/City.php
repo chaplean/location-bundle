@@ -3,7 +3,8 @@
 namespace Chaplean\Bundle\LocationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * City
@@ -17,8 +18,6 @@ use JMS\Serializer\Annotation as JMS;
  *     }
  * )
  * @ORM\Entity(repositoryClass="Chaplean\Bundle\LocationBundle\Repository\CityRepository")
- *
- * @JMS\ExclusionPolicy("all")
  */
 class City extends Location
 {
@@ -27,8 +26,7 @@ class City extends Location
      *
      * @ORM\Column(type="integer", length=5, nullable=false, name="zipcode", options={"unsigned":true})
      *
-     * @JMS\Expose
-     * @JMS\Groups({"city_zipcode"})
+     * @Groups({"city_zipcode"})
      */
     private $zipcode;
 
@@ -59,9 +57,7 @@ class City extends Location
      * @ORM\ManyToOne(targetEntity="Chaplean\Bundle\LocationBundle\Entity\Department", inversedBy="cities")
      * @ORM\JoinColumn(name="department_id", referencedColumnName="id", nullable=false)
      *
-     * @JMS\Expose
-     * @JMS\MaxDepth(depth=1)
-     * @JMS\Groups({"city_department"})
+     * @Groups({"city_department"})
      */
     private $department;
 

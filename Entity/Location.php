@@ -2,7 +2,7 @@
 namespace Chaplean\Bundle\LocationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -15,8 +15,6 @@ use JMS\Serializer\Annotation as JMS;
  *     "department":"Chaplean\Bundle\LocationBundle\Entity\Department",
  *     "region":"Chaplean\Bundle\LocationBundle\Entity\Region"
  * })
- *
- * @JMS\ExclusionPolicy("all")
  */
 abstract class Location
 {
@@ -27,8 +25,7 @@ abstract class Location
      * @ORM\Column(type="integer", options={"unsigned":true})
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @JMS\Expose
-     * @JMS\Groups({"location_id"})
+     * @Groups({"location_id"})
      */
     protected $id;
 
@@ -37,8 +34,7 @@ abstract class Location
      *
      * @ORM\Column(type="string", length=50, nullable=false)
      *
-     * @JMS\Expose
-     * @JMS\Groups({"location_name"})
+     * @Groups({"location_name"})
      */
     protected $name;
 

@@ -19,6 +19,9 @@ framework:
     php_errors:
         log: true
     profiler: { only_exceptions: false }
+    serializer:
+        enable_annotations: true
+        circular_reference_handler: 'Chaplean\Bundle\LocationBundle\Serializer\Handler\CircularReferenceHandler'
 
 # Doctrine Configuration
 doctrine:
